@@ -346,7 +346,9 @@ ul.sub-menu {
 **************************/
 
 #footer {
-  background: #F0F0E9;
+  background: rgb(41, 39, 39);
+  color: white;
+
 }
 
 
@@ -475,7 +477,8 @@ ul.sub-menu {
 }
 
 .single-widget h2 {
-  color: #666663;
+  text-align: center;
+  color: white;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -488,7 +491,7 @@ ul.sub-menu {
 }
 
 .single-widget ul li a{
-	color: #8C8C88;
+	color: white;
 	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 	font-weight: 300;

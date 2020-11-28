@@ -96,7 +96,7 @@
                                     <li><a href="{{url('/viewcart')}}">Cart</a></li>
                                 </ul>
                             </li>
-                            <li><a href="https://www.youtube.com/channel/UCH2Ir7rPaRN8ZPL9mSpclhw" target="_blank">Contact</a></li>
+                            <li><a href="{{url('/contact-us')}}">Contact Us</a></li>
                         </ul>
                     </div>
                 </div>

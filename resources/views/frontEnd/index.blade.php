@@ -3,40 +3,130 @@
 @section('content')
     <section>
         <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                    @include('frontEnd.layouts.category_menu')
-                </div>
-
-                <div class="col-sm-9 padding-right">
-                    <div class="features_items"><!--features_items-->
-                        <h2 class="title text-center">Features Items</h2>
-                        @foreach($products as $product)
-                            @if($product->category->status==1)
-                                <div class="col-sm-4">
-                                <div class="product-image-wrapper">
-                                <div class="single-products">
-                                    <div class="productinfo text-center">
-                                        <a href="{{url('/product-detail',$product->id)}}"><img src="{{url('products/small/',$product->image)}}" alt="" /></a>
-                                        <h2>$ {{$product->price}}</h2>
-                                        <p>{{$product->p_name}}</p>
-                                        <a href="{{url('/product-detail',$product->id)}}" class="btn btn-default add-to-cart">View Product</a>
-                                    </div>
-                                </div>
-                                <div class="choose">
-                                    <ul class="nav nav-pills nav-justified">
-                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                            @endif
-                        @endforeach
-                    </div><!--features_items-->
-
-                </div>
+            <div class="container_top">
+                <img class="shop_next_image" src="{{url('products/medium/shop_next.PNG')}}" alt="kkk">
             </div>
+            <h3 class="list_product">New Latest Product</h3>
+            <div class="row  mb-4">
+                <div class="col-lg-4 col-md-4 col-sm-4 ">
+                    <div class="card " >
+                        <div class="card-body">
+                            <h4>LENOVO</h4>
+                            <div class="image">
+                                <img src="{{url('products/small/download.jpg')}}" alt="">
+                            </div>
+                            <h4>300%</h4>
+                        </div>
+                        <div class="card-footer">
+                            <h5>ADD TO CARD</h5>
+                        </div>
+                    </div>
+                </div>  
+                <div class="col-lg-4 col-md-4 col-sm-4 ">
+                    <div class="card" >
+                        <div class="card-body">
+                            <h4>LENOVO</h4>
+                            <div class="image">
+                                <img src="{{url('products/small/download.jpg')}}" alt="">
+                            </div>
+                            <h4>300%</h4>
+                        </div>
+                        <div class="card-footer">
+                            <h5>ADD TO CARD</h5>
+                        </div>
+                    </div>
+                </div>  
+                <div class="col-lg-4 col-md-4 col-sm-4 ">
+                    <div class="card" >
+                        <div class="card-body">
+                            <h4>LENOVO</h4>
+                            <div class="image">
+                                <img src="{{url('products/small/download.jpg')}}" alt="">
+                            </div>
+                            <h4>300%</h4>
+                        </div>
+                        <div class="card-footer">
+                            <h5>ADD TO CARD</h5>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+            <div class="row  mb-4">
+                <div class="col-lg-4 col-md-4 col-sm-4 ">
+                    <div class="card " >
+                        <div class="card-body">
+                            <h4>LENOVO</h4>
+                            <div class="image">
+                                <img src="{{url('products/small/download.jpg')}}" alt="">
+                            </div>
+                            <h4>300%</h4>
+                        </div>
+                        <div class="card-footer">
+                            <h5>ADD TO CARD</h5>
+                        </div>
+                    </div>
+                </div>  
+                <div class="col-lg-4 col-md-4 col-sm-4 ">
+                    <div class="card" >
+                        <div class="card-body">
+                            <h4>LENOVO</h4>
+                            <div class="image">
+                                <img src="{{url('products/small/download.jpg')}}" alt="">
+                            </div>
+                            <h4>300%</h4>
+                        </div>
+                        <div class="card-footer">
+                            <h5>ADD TO CARD</h5>
+                        </div>
+                    </div>
+                </div>  
+                <div class="col-lg-4 col-md-4 col-sm-4 ">
+                    <div class="card" >
+                        <div class="card-body">
+                            <h4>LENOVO</h4>
+                            <div class="image">
+                                <img src="{{url('products/small/download.jpg')}}" alt="">
+                            </div>
+                            <h4>300%</h4>
+                        </div>
+                        <div class="card-footer">
+                            <h5>ADD TO CARD</h5>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+            
         </div>
     </section>
 @endsection
+<style>
+    .container_top{
+        margin-top:-5%;
+    }
+    .shop_next_image{
+        width:100%;
+    }
+    .list_product{
+        margin-bottom:3%;
+    }
+    .card{
+        box-shadow: 5%;
+        border: 0.2px solid;
+        margin-bottom: 10%;
+
+    }
+    .card-body{
+        padding:5%;
+        border-bottom: 0.2px solid;
+
+    }
+    
+    .card-footer{
+        text-align: center;
+    }
+    .image{
+        margin-left:5%;
+        width:40%;
+        padding:2%;
+    }
+</style>

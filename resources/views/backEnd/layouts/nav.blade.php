@@ -12,8 +12,10 @@
             <ul>
                 <li><a href="{{url('/admin/product/create')}}">Add New Products</a></li>
                 <li><a href="{{route('product.index')}}">List Products</a></li>
+
             </ul>
         </li>
+        
         <li class="submenu {{$menu_active==4? ' active':''}}"> <a href="#"><i class="icon icon-th-list"></i> <span>Coupons</span></a>
             <ul>
                 <li><a href="{{route('coupon.create')}}">Add New Coupon</a></li>

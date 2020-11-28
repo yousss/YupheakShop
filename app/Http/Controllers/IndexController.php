@@ -14,6 +14,10 @@ class IndexController extends Controller
         $products=Products_model::all();
         return view('frontEnd.index',compact('products'));
     }
+    public function contactUs(){
+        
+        return view('frontEnd.contact_us');
+    }
     public function shop(){
         $products=Products_model::all();
         $byCate="";

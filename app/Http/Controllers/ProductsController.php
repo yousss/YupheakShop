@@ -22,6 +22,7 @@ class ProductsController extends Controller
         $products=Products_model::orderBy('created_at','desc')->get();
         return view('backEnd.products.index',compact('menu_active','products','i'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
