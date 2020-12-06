@@ -11,7 +11,8 @@
 |
 */
 /* FrontEnd Location */
-Route::get('/','IndexController@index');
+Route::get('/homepage','IndexController@index');
+Route::get('/','IndexController@shop');
 Route::get('/contact-us','IndexController@contactUs');
 Route::get('/list-products','IndexController@shop');
 Route::get('/cat/{id}','IndexController@listByCat')->name('cats');

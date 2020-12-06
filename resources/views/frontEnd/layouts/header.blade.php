@@ -2,15 +2,33 @@
     <div class="header_top"><!--header_top-->
         <div class="container">
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="contactinfo">
+                <div class="col-sm-3">
+                    <!-- <div class="contactinfo ">
                         <ul class="nav nav-pills">
-                            <li><a href="#"><i class="fa fa-phone"></i> 010 010010</a></li>
-                            <li><a href="#"><i class="fa fa-envelope"></i> info@nodomain.com</a></li>
+                            <li><a href="#"><i class="fa fa-phone"></i> +855 89/87 961 668</a></li>
+                            <li><a href="#"><i class="fa fa-envelope"></i> iss.solu@gmail.com</a></li>
+                        </ul>
+                    </div> -->
+                </div>
+                <div class="col-sm-3"></div>
+
+                <div class="col-sm-6">
+                <div class="shop-menu pull-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#"><i class="fa fa-phone"></i> +855 89/87 961 668</a></li>
+                            <li><a href="#"><i class="fa fa-envelope"></i> iss.solu@gmail.com</a></li>
+                            <!-- <li><a href="{{url('/viewcart')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li> -->
+                            @if(Auth::check())
+                                <li><a href="{{url('/myaccount')}}"><i class="fa fa-user"></i> My Account</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-lock"></i> Logout </a>
+                                </li>
+                            @else
+                                <li><a href="{{url('/login_page')}}"><i class="fa fa-lock"></i> Login</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                     <div class="social-icons pull-right">
                         <ul class="nav navbar-nav">
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -20,18 +38,18 @@
                             <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div><!--/header_top-->
 
     <div class="header-middle"><!--header-middle-->
         <div class="container">
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="{{url('/')}}"><img src="{{asset('frontEnd/images/home/logo.png')}}" alt="" /></a>
-                    </div>
+                        <!-- <a href="{{url('/')}}"><img src="{{asset('frontEnd/images/home/logo.png')}}" alt="" /></a> -->
+                    <!--</div>
                     <div class="btn-group pull-right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
@@ -70,7 +88,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div><!--/header-middle-->
 
@@ -88,15 +106,18 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="{{url('/')}}" class="active">Home</a></li>
-                            <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+                            <li><a href="{{url('/homepage')}}">Home</a></li>
+                            <li><a href="{{url('/list-products')}}" class="active"><b>Products</b></a></li>
+                            <li><a href="{{url('/viewcart')}}"><b>Cart</b></a></li>
+
+                            <!-- <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a href="{{url('/list-products')}}">Products</a></li>
                                     <li><a href="{{url('/myaccount')}}">Account</a></li>
                                     <li><a href="{{url('/viewcart')}}">Cart</a></li>
                                 </ul>
-                            </li>
-                            <li><a href="{{url('/contact-us')}}">Contact Us</a></li>
+                            </li> -->
+                            <li><a href="{{url('/contact-us')}}"><b>Contact Us</b></a></li>
                         </ul>
                     </div>
                 </div>
@@ -109,3 +130,4 @@
         </div>
     </div><!--/header-bottom-->
 </header><!--/header-->
+<br><br>

@@ -72,7 +72,7 @@
                             @endif
                         </p>
                         <p><b>Condition:</b> New</p>
-                        <a href=""><img src="{{asset('frontEnd/images/product-details/share.png')}}" class="share img-responsive"  alt="" /></a>
+                        <!-- <a href=""><img src="{{asset('frontEnd/images/product-details/share.png')}}" class="share img-responsive"  alt="" /></a> -->
                     </div><!--/product-information-->
                 </form>
 
