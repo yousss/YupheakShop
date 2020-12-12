@@ -1,7 +1,8 @@
 @extends('frontEnd.layouts.master')
 @section('content')
     <section>
-        <div class="container">
+        <div class="container ">
+
             <h3 class="list_product container_top">About Us</h3>
             <p> Let us change your demand and experiece of business and integrated system solutions.</p>
             <div class="row  mb-4">
@@ -57,9 +58,9 @@
     </section>
 @endsection
 <style>
-    .container_top{
+    /* .container_top{
         margin-top:-5%;
-    }
+    } */
     p{
         font-size:17px;
     }

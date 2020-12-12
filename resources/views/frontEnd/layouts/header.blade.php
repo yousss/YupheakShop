@@ -45,10 +45,10 @@
 
     <div class="header-middle"><!--header-middle-->
         <div class="container">
-            <!-- <div class="row">
+            <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <!-- <a href="{{url('/')}}"><img src="{{asset('frontEnd/images/home/logo.png')}}" alt="" /></a> -->
+                        <a href="{{url('/')}}"><img id="image" src="{{asset('frontEnd/images/home/logo_shopNex.png')}}" alt="" /></a>
                     <!--</div>
                     <div class="btn-group pull-right">
                         <div class="btn-group">
@@ -88,7 +88,7 @@
                         </ul>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div><!--/header-middle-->
 
@@ -106,7 +106,7 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="{{url('/homepage')}}">Home</a></li>
+                            <!-- <li><a href="{{url('/homepage')}}">Home</a></li> -->
                             <li><a href="{{url('/list-products')}}" class="active"><b>Products</b></a></li>
                             <li><a href="{{url('/viewcart')}}"><b>Cart</b></a></li>
 
