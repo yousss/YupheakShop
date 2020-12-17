@@ -163,7 +163,7 @@
 }
 
 .mainmenu ul li{
-	background: rgba(0, 0, 0, 0.5);
+	background: #3273a8;
     padding-top: 15px;
 	padding-bottom: 0;
 }
@@ -350,7 +350,7 @@ ul.sub-menu{
 }
 
 .mainmenu ul li{
-	background: rgba(0, 0, 0, 0.5);
+	background:#3273a8;
     padding-top: 15px;
 	padding-bottom: 0;
 }

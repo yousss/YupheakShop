@@ -18,10 +18,13 @@
                                 echo '<h2 class="title text-center">List Products</h2>';
                             }
                     ?>
+                    <div class="row">
                     @foreach($products as $product)
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+
                         @if($product->category->status==1)
-                            <div class="col-sm-4">
                             <div class="product-image-wrapper">
+                            <!-- {{$product}} -->
                                 <div class="single-products">
                                     <div class="productinfo text-center">
                                         <a href="{{url('/product-detail',$product->id)}}"><img src="{{url('products/small/',$product->image)}}" alt="" /></a>
@@ -37,9 +40,11 @@
                                     </ul>
                                 </div> -->
                             </div>
-                        </div>
                         @endif
+                        </div>
+
                     @endforeach
+                    </div>
                     {{--<ul class="pagination">
                         <li class="active"><a href="">1</a></li>
                         <li><a href="">2</a></li>
