@@ -107,8 +107,12 @@
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <!-- <li><a href="{{url('/homepage')}}">Home</a></li> -->
-                            <li><a href="{{url('/list-products')}}" class="active"><b>Products</b></a></li>
-                            <li><a href="{{url('/viewcart')}}"><b>Cart</b></a></li>
+                            <li>
+                                <a class="{{ Request::is('list-products') ? 'active' : null }}" href="{{url('/list-products')}}" ><b>Products</b></a>
+                            </li>
+                            <li>
+                                <a class="{{ Request::is('viewcart') ? 'active' : null }}" href="{{url('/viewcart')}}"><b>Cart</b></a>
+                            </li>
 
                             <!-- <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
@@ -117,7 +121,9 @@
                                     <li><a href="{{url('/viewcart')}}">Cart</a></li>
                                 </ul>
                             </li> -->
-                            <li><a href="{{url('/contact-us')}}"><b>Contact Us</b></a></li>
+                            <li>
+                                <a class="{{ Request::is('contact-us') ? 'active' : null }}" href="{{url('/contact-us')}}"><b>Contact Us</b></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
