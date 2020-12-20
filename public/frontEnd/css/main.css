@@ -242,7 +242,8 @@ a#scrollUp i{
 	color: #FFFFFF;
 	font-family: 'Roboto', sans-serif;
 	font-size: 17px;
-	font-weight: 300;
+  font-weight: 300;
+  
 	padding: 0;
 	padding-bottom: 10px;
 }
@@ -862,6 +863,12 @@ h2.title {
   position: absolute;
   top: 0;
   right: 0;
+}
+
+.row.row-flex{
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
 .productinfo h2{

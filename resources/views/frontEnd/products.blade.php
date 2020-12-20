@@ -18,7 +18,7 @@
                                 echo '<h2 class="title text-center">List Products</h2>';
                             }
                     ?>
-                    <div class="row">
+                    <div class="row row-flex">
                     @foreach($products as $product)
                     <div class="col-lg-3 col-md-3 col-sm-3">
 
