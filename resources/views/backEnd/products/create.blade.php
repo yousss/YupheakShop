@@ -67,7 +67,7 @@
                         <label for="price" class="control-label">Price</label>
                         <div class="controls{{$errors->has('price')?' has-error':''}}">
                             <div class="input-prepend"> <span class="add-on">$</span>
-                                <input type="number" name="price" id="price" class="" value="{{old('price')}}" title="" required="required">
+                                <input type="number" step="any" name="price" id="price" class="" value="{{old('price')}}" title="" required="required">
                                 <span class="text-danger">{{$errors->first('price')}}</span>
                             </div>
                         </div>
@@ -104,7 +104,11 @@
     <script src="{{asset('js/wysihtml5-0.3.0.js')}}"></script>
     <script src="{{asset('js/jquery.peity.min.js')}}"></script>
     <script src="{{asset('js/bootstrap-wysihtml5.js')}}"></script>
-    <script>
+    <!-- <script>
+    
         $('.textarea_editor').wysihtml5();
+    </script> -->
+    <script>
+        CKEDITOR.replace( 'description' );
     </script>
 @endsection
