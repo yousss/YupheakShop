@@ -1157,7 +1157,9 @@ h2.title {
 .product-details{
 	overflow:hidden;
 }
-
+#details {
+  white-space: pre-line;
+}
 
 #similar-product {
   margin-top: 40px;
