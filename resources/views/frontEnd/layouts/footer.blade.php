@@ -1,70 +1,58 @@
 <footer id="footer"><!--Footer-->
-   
-        <div class="container">
-            <div class="row text-white">
-                <div class="col-lg-4 col-ml-5 col-md-5 col-sm-5">
-                    <div class="single-widget">
-                        <h2 >About Us</h2>
-                        <p class="nav nav-pills nav-stacked">
-                            Let us change your demand and experince of business and intergrated system solutions.
-                             We are providing intergrated system solutions with authorixe Product Ressller, Solutions and Consulting. 
-                        </p>
-                        <p>
-                        Our Office: St. 69, Songkat Phsar Daeum Thkov, Khan Chamka Mon, Phnom Phenh, 
-                        Cambodia, Phone: +855 89/87 961 669, 
-                        Email: iss.solu@gamil.com.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-ml-3 col-md-3 col-sm-3">
-                    <div class="single-widget">
-                        <h2>Term and Conditions</h2>
-                        <div class="col-lg-4 col-ml-4 col-md-4 col-sm-4"><p>Delivery</p></div>
-                        <div class="col-lg-1 col-ml-1 col-md-1 col-sm-1"><p>:</p></div>
-                        <div class="col-lg-7 col-ml-7 col-md-7 col-sm-7"><p>Free Phnom Penh City, Cambodia</p></div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-ml-4 col-md-4 col-sm-4">
-                    <div class="single-widget">
-                        <h2>Contact Us</h2>
-                        <div class="row">
-                            <div class="col-lg-4 col-ml-4 col-md-4 col-sm-4"><p>Phone</p></div>
-                            <div class="col-lg-1 col-ml-1 col-md-1 col-sm-1"><p>:</p></div>
-                            <div class="col-lg-7 col-ml-7 col-md-7 col-sm-7"><p>+855 89/87 961 668</p></div>
+    
+    <div class="container p-4">
+        <!--Grid row-->
+        <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+            <h4 class="text-uppercase">ABOUT US</h4>
 
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 col-ml-4 col-md-4 col-sm-4"><p>Email</p></div>
-                            <div class="col-lg-1 col-ml-1col-ml-1 col-md-1 col-sm-1"><p>:</p></div>
-                            <div class="col-lg-7 col-ml-7 col-md-7 col-sm-7"><p>iss.solu@gmail.com</p></div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 col-ml-4 col-md-4 col-sm-4"><p>Website</p></div>
-                            <div class="col-lg-1 col-ml-1 col-md-1 col-sm-1"><p>:</p></div>
-                            <div class="col-lg-7 col-ml-7 col-md-7 col-sm-7"><p>www.ypsolutionkh.com</p></div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 col-ml-4 col-md-4 col-sm-4"><p>Our Office</p></div>
-                            <div class="col-lg-1 col-ml-1 col-md-1 col-sm-1">
-                                <p>:</p>
-                            </div>
-                            <div class="col-lg-7 col-ml-7 col-md-7 col-sm-7">
-                                <p>Our Office: St. 69, Songkat Phsar Daeum Thkov, Khan Chamka Mon, Phnom Phenh, 
-                                Cambodia.</p>
-                            </div>
-
-                        </div>
-                        <ul class="nav nav-pills nav-stacked">
-                            
-                            
-                        </ul>
-                    </div>
-                </div>
-                
-
-            </div>
+            <p>
+                Let us change your demand and experince of business and intergrated system solutions.
+                We are providing intergrated system solutions with authorixe Product Ressller, Solutions and Consulting.
+                Our Office: St. 69, Songkat Phsar Daeum Thkov, Khan Chamka Mon, Phnom Phenh, Cambodia, 
+                Phone: +855 89/87 961 669, 
+                Email: iss.solu@gamil.com. 
+            </p>
         </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h4 class="text-uppercase">TERM AND CONDITION</h4>
+            <ul class="list-unstyled">
+                <li>
+                    <h5>Delivery:</h5> 
+                    <span>Free Phnom Penh City, Cambodia</span>
+                </li>
+                
+            </ul>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h4 class="text-uppercase mb-0">CONTACT US</h4>
+
+            <ul class="list-unstyled">
+                <li>
+                    <h5>Phone:</h5> 
+                    <span>+855 89/87 961 668</span>
+                </li>
+                <li>
+                    <h5>Email:</h5>
+                    <span>iss.solu@gmail.com</span>
+                </li>
+                <li>
+                    <h5>Our Office:</h5>
+                    <span>St. 69, Songkat Phsar Daeum Thkov, Khan Chamka Mon, Phnom Phenh, Cambodia.</span>
+                </li>
+            </ul>
+        </div>
+        <!--Grid column-->
+        </div>
+    <!--Grid row-->
+    </div>
+  <!-- Grid container -->
     
 </footer><!--/Footer-->
