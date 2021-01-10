@@ -11,8 +11,8 @@
                 Let us change your demand and experince of business and intergrated system solutions.
                 We are providing intergrated system solutions with authorixe Product Ressller, Solutions and Consulting.
                 Our Office: St. 69, Songkat Phsar Daeum Thkov, Khan Chamka Mon, Phnom Phenh, Cambodia, 
-                Phone: +855 89/87 961 669, 
-                Email: iss.solu@gamil.com. 
+                Phone: +855 87 961 669, 
+                Email: iss.solu@gmail.com. 
             </p>
         </div>
         <!--Grid column-->
@@ -37,7 +37,7 @@
             <ul class="list-unstyled">
                 <li>
                     <h5>Phone:</h5> 
-                    <span>+855 89/87 961 668</span>
+                    <span>+855 87 961 668</span>
                 </li>
                 <li>
                     <h5>Email:</h5>
