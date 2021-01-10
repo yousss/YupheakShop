@@ -239,6 +239,7 @@ a#scrollUp i{
 }
 
 .mainmenu ul li a {
+  margin-right:-67%;
 	color: #FFFFFF;
 	font-family: 'Roboto', sans-serif;
 	font-size: 17px;
@@ -259,6 +260,7 @@ a#scrollUp i{
   color: #B2B2B2;
   font-family: 'roboto';
   font-size: 12px;
+  margin-top: -6%;
   font-weight: 300;
   height: 35px;
   outline: medium none;

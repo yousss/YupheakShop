@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="col-lg-4 col-ml-4 col-md-4 col-sm-4"><p>Phone</p></div>
                             <div class="col-lg-1 col-ml-1 col-md-1 col-sm-1"><p>:</p></div>
-                            <div class="col-lg-7 col-ml-7 col-md-7 col-sm-7"><p>+855 89/87 961 668</p></div>
+                            <div class="col-lg-7 col-ml-7 col-md-7 col-sm-7"><p>+855 87 961 668</p></div>
 
                         </div>
                         <div class="row">
