@@ -1,8 +1,11 @@
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
-            <div class="row">
+            <div class="row ">
                 <div class="col-sm-3">
+                <div class="logo pull-left">
+                    <a href="{{url('/')}}"><img id="image" style="width:200px; margin-top:3px" src="{{asset('frontEnd/images/home/logo_shopNex.png')}}" alt="" /></a>
+                </div>
                     <!-- <div class="contactinfo ">
                         <ul class="nav nav-pills">
                             <li><a href="#"><i class="fa fa-phone"></i> +855 89/87 961 668</a></li>
@@ -15,7 +18,7 @@
                 <div class="col-sm-6">
                 <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-phone"></i> +855 89/87 961 668</a></li>
+                            <li><a href="#"><i class="fa fa-phone"></i> +855 87 961 669</a></li>
                             <li><a href="#"><i class="fa fa-envelope"></i> iss.solu@gmail.com</a></li>
                             <!-- <li><a href="{{url('/viewcart')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li> -->
                             @if(Auth::check())
@@ -48,7 +51,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="{{url('/')}}"><img id="image" src="{{asset('frontEnd/images/home/logo_shopNex.png')}}" alt="" /></a>
+                        <!-- <a href="{{url('/')}}"><img id="image" src="{{asset('frontEnd/images/home/logo_shopNex.png')}}" alt="" /></a> --> 
                     <!--</div>
                     <div class="btn-group pull-right">
                         <div class="btn-group">
