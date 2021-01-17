@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="section mb-5">
-            <img src="{{asset('frontEnd/images/home/Welcome.png')}}" alt="Logo" style="height:100%; width:100%; margin-top:-5%"/> 
+            <img src="{{asset('frontEnd/images/home/Welcome.png')}}" alt="Logo" style="height:100%; width:100%;"/> 
         </div>
         <div class="row">
             <div class="col-sm-3">
@@ -32,7 +32,7 @@
                                     <div class="productinfo text-center">
                                         <a href="{{url('/product-detail',$product->id)}}"><img src="{{url('products/small/',$product->image)}}" alt="" /></a>
                                         <h2>$ {{$product->price}}</h2>
-                                        <p>{{$product->p_name}}</p>
+                                        <p class="show-read-more">{{$product->p_name}}</p>
                                         <a href="{{url('/product-detail',$product->id)}}" class="btn btn-default add-to-cart">View Product</a>
                                     </div>
                                 </div>

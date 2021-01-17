@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Apr 22, 2019 at 02:00 AM
--- Server version: 5.7.21
--- PHP Version: 7.2.4
+-- Host: 127.0.0.1
+-- Generation Time: Dec 12, 2020 at 05:05 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.2.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,9 +28,8 @@ SET time_zone = "+00:00";
 -- Table structure for table `cart`
 --
 
-DROP TABLE IF EXISTS `cart`;
-CREATE TABLE IF NOT EXISTS `cart` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cart` (
+  `id` int(10) UNSIGNED NOT NULL,
   `products_id` int(11) NOT NULL,
   `product_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -41,9 +40,8 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `user_email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `session_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `cart`
@@ -56,7 +54,8 @@ INSERT INTO `cart` (`id`, `products_id`, `product_name`, `product_code`, `produc
 (39, 31, 'House', 'SKU-House1', 'White and Brown', '5*20', 25.00, 4, 'weshare@gmail.com', 'SFoV6rkDUv7y5F81nKOo5H3u0ERK3EYkcBQhUrcm', '2018-12-06 17:49:50', '2018-12-06 17:49:50'),
 (36, 33, 'Cole Haan', 'SKU-Haan1', 'Brown', '25', 12.00, 1, 'weshare@gmail.com', 'OrHCEFHcACdGNXet3m2jVbzlJS0VybkkeknXXilx', '2018-12-06 02:18:10', '2018-12-06 02:18:10'),
 (37, 32, 'Vionic Shoes Brand', 'SKU-Vionic3', 'All Colors', '30', 20.00, 1, 'weshare@gmail.com', 'OrHCEFHcACdGNXet3m2jVbzlJS0VybkkeknXXilx', '2018-12-06 02:30:33', '2018-12-06 02:30:33'),
-(43, 35, 'Cloths', 'SKU-Red', 'Black', 'S', 2.00, 5, 'weshare@gmail.com', 'bKnMoW6lH0eA6ciYTU47tgeayw5CFUzBkjkBb3F5', '2018-12-06 18:18:31', '2018-12-06 18:18:31');
+(43, 35, 'Cloths', 'SKU-Red', 'Black', 'S', 2.00, 5, 'weshare@gmail.com', 'bKnMoW6lH0eA6ciYTU47tgeayw5CFUzBkjkBb3F5', '2018-12-06 18:18:31', '2018-12-06 18:18:31'),
+(45, 29, 'LTS CMIP9382NW-28M 8MP IR H.265 Outdoor Bullet IP Security Camera', 'SKU-Prius1', 'White', 'One Size', 12.00, 2, 'weshare@gmail.com', 'a3j0zpYpS4MVcsMhzVRMGmQHV0pPxOylOy0YRQ9V', '2020-12-12 07:12:36', '2020-12-12 07:12:36');
 
 -- --------------------------------------------------------
 
@@ -64,34 +63,33 @@ INSERT INTO `cart` (`id`, `products_id`, `product_name`, `product_code`, `produc
 -- Table structure for table `categories`
 --
 
-DROP TABLE IF EXISTS `categories`;
-CREATE TABLE IF NOT EXISTS `categories` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `categories` (
+  `id` int(10) UNSIGNED NOT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `url` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `status` tinyint(4) NOT NULL DEFAULT 0,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `slug` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `parent_id`, `name`, `description`, `url`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(12, 0, 'Car', 'Car Category', 'http://wornnarith.cambosoft.com', 1, NULL, '2018-10-22 21:32:33', '2018-11-16 02:00:00'),
-(10, 0, 'House', 'House Category', 'http://wornnarith.cambosoft.com', 1, NULL, '2018-10-22 21:31:29', '2018-11-16 02:05:53'),
-(11, 0, 'Shoes', 'Shoes Category', 'http://wornnarith.cambosoft.com', 1, NULL, '2018-10-22 21:32:14', '2018-11-16 02:07:15'),
-(13, 0, 'Computer', 'Computer Category', 'http://wornnarith.cambosoft.com', 1, NULL, '2018-10-22 21:33:26', '2018-11-16 02:05:43'),
-(14, 0, 'Cloths', 'Cloths Category', 'http://wornnarith.cambosoft.com', 1, NULL, '2018-10-22 21:34:31', '2018-11-16 02:05:18'),
-(15, 12, 'Toyota', 'Toyota Sub Category of Car', 'http://wornnarith.cambosoft.com', 1, NULL, '2018-10-22 21:35:08', '2018-11-16 01:54:49'),
-(16, 10, 'Link House', 'Link House Sub Category', 'http://wornnarith.cambosoft.com', 1, NULL, '2018-10-22 21:56:56', '2018-11-16 02:07:05'),
-(17, 11, 'Man Shoes', 'Man Shoes Sub Category of Shoes', 'http://wornnarith.cambosoft.com', 1, NULL, '2018-10-22 21:58:13', '2018-11-16 01:53:44');
+(12, 0, 'Security Camera', 'Security Camera', 'http://wornnarith.cambosoft.com', 1, NULL, '2018-10-22 21:32:33', '2020-12-12 07:01:43'),
+(30, 0, 'Rack Station RS1219+', NULL, 'http://camara.com', 1, NULL, '2020-12-12 07:32:48', '2020-12-12 07:32:48'),
+(31, 30, 'Rack Station RS1219+ product', NULL, 'http://camara.com', 1, NULL, '2020-12-12 07:33:14', '2020-12-12 07:33:14'),
+(32, 0, 'Synology DS1019+', NULL, 'http://camara.com', 1, NULL, '2020-12-12 07:35:42', '2020-12-12 08:27:06'),
+(33, 32, 'Synology DS1019+ product', NULL, 'http://camara.com', 1, NULL, '2020-12-12 07:36:11', '2020-12-12 07:36:11'),
+(26, 25, 'Hybrid Network Video Recorder products', NULL, 'http://camara.com', 1, NULL, '2020-12-12 06:53:38', '2020-12-12 07:05:27'),
+(27, 12, 'Camara product', NULL, 'http://camara.com', 1, NULL, '2020-12-12 07:04:50', '2020-12-12 07:06:08'),
+(28, 0, 'Hard drive array', NULL, 'http://camara.com', 1, NULL, '2020-12-12 07:18:03', '2020-12-12 07:18:03'),
+(29, 28, 'Hard drive array Product', NULL, 'http://camara.com', 1, NULL, '2020-12-12 07:18:35', '2020-12-12 07:18:35'),
+(25, 0, 'Hybrid Network Video Recorder', NULL, 'http://camara.com', 1, NULL, '2020-12-12 06:35:40', '2020-12-12 06:59:46');
 
 -- --------------------------------------------------------
 
@@ -99,15 +97,13 @@ INSERT INTO `categories` (`id`, `parent_id`, `name`, `description`, `url`, `stat
 -- Table structure for table `countries`
 --
 
-DROP TABLE IF EXISTS `countries`;
-CREATE TABLE IF NOT EXISTS `countries` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `countries` (
+  `id` int(10) UNSIGNED NOT NULL,
   `country_code` varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL,
   `country_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=298 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `countries`
@@ -417,18 +413,16 @@ INSERT INTO `countries` (`id`, `country_code`, `country_name`, `created_at`, `up
 -- Table structure for table `coupons`
 --
 
-DROP TABLE IF EXISTS `coupons`;
-CREATE TABLE IF NOT EXISTS `coupons` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `coupons` (
+  `id` int(10) UNSIGNED NOT NULL,
   `coupon_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `amount` int(11) NOT NULL,
   `amount_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiry_date` date NOT NULL,
   `status` tinyint(4) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `coupons`
@@ -443,9 +437,8 @@ INSERT INTO `coupons` (`id`, `coupon_code`, `amount`, `amount_type`, `expiry_dat
 -- Table structure for table `delivery_address`
 --
 
-DROP TABLE IF EXISTS `delivery_address`;
-CREATE TABLE IF NOT EXISTS `delivery_address` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `delivery_address` (
+  `id` int(10) UNSIGNED NOT NULL,
   `users_id` int(11) NOT NULL,
   `users_email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -456,9 +449,8 @@ CREATE TABLE IF NOT EXISTS `delivery_address` (
   `pincode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mobile` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `delivery_address`
@@ -474,13 +466,11 @@ INSERT INTO `delivery_address` (`id`, `users_id`, `users_email`, `name`, `addres
 -- Table structure for table `migrations`
 --
 
-DROP TABLE IF EXISTS `migrations`;
-CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `batch` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -506,9 +496,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- Table structure for table `orders`
 --
 
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE IF NOT EXISTS `orders` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `orders` (
+  `id` int(10) UNSIGNED NOT NULL,
   `users_id` int(11) NOT NULL,
   `users_email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -525,9 +514,8 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `payment_method` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `grand_total` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `orders`
@@ -543,12 +531,10 @@ INSERT INTO `orders` (`id`, `users_id`, `users_email`, `name`, `address`, `city`
 -- Table structure for table `password_resets`
 --
 
-DROP TABLE IF EXISTS `password_resets`;
-CREATE TABLE IF NOT EXISTS `password_resets` (
+CREATE TABLE `password_resets` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  KEY `password_resets_email_index` (`email`)
+  `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -557,9 +543,8 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 -- Table structure for table `products`
 --
 
-DROP TABLE IF EXISTS `products`;
-CREATE TABLE IF NOT EXISTS `products` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `products` (
+  `id` int(10) UNSIGNED NOT NULL,
   `categories_id` int(11) NOT NULL,
   `p_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `p_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -568,24 +553,27 @@ CREATE TABLE IF NOT EXISTS `products` (
   `price` double(8,2) NOT NULL,
   `image` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`id`, `categories_id`, `p_name`, `p_code`, `p_color`, `description`, `price`, `image`, `created_at`, `updated_at`) VALUES
-(28, 15, 'Lexus Rx 330', '12152', 'White', 'EXCELLENT SAFETY FOR YOUR FAMILY<br>Child Safety Locks, Electronic Stability Control, Brake Assist, 4-Wheel ABS, Tire Pressure Monitoring System, 4-Wheel Disc Brakes Safety equipment includes Child Safety Locks', 15.00, '1544063712-lexus-rx-330.jpg', '2018-12-05 19:35:12', '2018-12-05 19:43:48'),
-(27, 15, '2019 New Toyota Highlander XLE V6', 'XLE V6 FWD', 'White', 'Sunroof, Heated Leather Seats, NAV, 3rd Row Seat, Alloy Wheels, Quad Seats, Rear Air, Power Liftgate. XLE trim. Warranty 5 yrs/60k Miles - Drivetrain Warranty; AND MORE!', 20.00, '1544063425-2019-new-toyota-highlander-xle-v6.jpg', '2018-12-05 19:30:25', '2018-12-05 19:43:57'),
-(29, 12, '2018 Toyota Prius', '1252', 'Red', 'VEHICLE FEATURES<br>Rear Spoiler, MP3 Player, Remote Trunk Release, Keyless Entry, Privacy Glass.&nbsp;', 5.00, '1544063924-2018-toyota-prius.jpg', '2018-12-05 19:38:44', '2018-12-05 19:43:38'),
-(30, 16, 'Link House New LC2', 'L_1252', 'Gray', 'Borey Peng Huoth Cambodia', 10.00, '1544064142-link-house-new-lc2.jpg', '2018-12-05 19:42:22', '2018-12-05 19:42:22'),
-(31, 10, 'House', '5214', 'White and Brown', 'House For Sale', 10.00, '1544064430-house.jpg', '2018-12-05 19:47:10', '2018-12-05 19:47:10'),
-(32, 11, 'Vionic Shoes Brand', '5265', 'All Colors', 'Women Shoes', 12.00, '1544064607-vionic-shoes-brand.jpg', '2018-12-05 19:50:07', '2018-12-05 19:50:07'),
-(33, 17, 'Cole Haan', 'KHR 775659.29', 'Brown', 'Men\'s Original Grand Wingtip Oxfords', 5.00, '1544064903-cole-haan.jpg', '2018-12-05 19:55:03', '2018-12-05 19:55:03'),
-(34, 13, 'Lenovo ThinkPad', '1252', 'Black', 'Lenovo Thinkpad From China', 2.00, '1544065331-lenovo-thinkpad.jpg', '2018-12-05 20:02:12', '2018-12-05 20:02:12'),
-(35, 14, 'Cloths', 'The Man', 'Black', 'Cloths Description here', 2.00, '1544065493-cloths.png', '2018-12-05 20:04:54', '2018-12-05 20:04:54');
+(38, 25, 'LTS LTN8716K-P16 16 Channel 4K Network Video Recorder - No HDD included', '006', 'Black', '<div>Key features:</div><div>16 Channel Network Video Recorder</div><div>No HDD included</div><div>Platinum Series</div><div>Support Live View,</div><div>Playback up to 4K(8MP) IP Camera</div><div>160MB Bandwidth</div><div>1U</div><div>16 Built-in PoE</div><div>4K (3840x2160) HDMI Video Output</div><div>2 SATA up to 12TB</div><div>H.265/H.264/H.264+/MPEG4</div>', 608.00, '1607782591-lts-ltn8716k-p16-16-channel-4k-network-video-recorder-no-hdd-included.png', '2020-12-12 07:16:31', '2020-12-12 07:16:31'),
+(29, 12, 'LTS CMIP9382NW-28M 8MP IR H.265 Outdoor Bullet IP Security Camera', '002', 'White', '<div>Key features:</div><div>8MP /4K High Definition</div><div>Up to 3840x2160@15fps</div><div>2.8mm Fixed Lens</div><div>Matrix IR 2.0, IR Range up to 165 feet</div><div>H.265, H.265+, H.264, H.264+ Ready</div><div>True WDR 120dB</div><div>IP67 Weatherproof</div><div>MicroSD Slot up to 128GB</div><div>DC 12V, PoE</div><div>Dimensions:Φ4.13″ x 11.80″ (Φ105 x 299.7 mm)</div><div>ONVIF</div>', 335.00, '1607778315-2018-toyota-prius.png', '2018-12-05 19:38:44', '2020-12-12 06:25:22'),
+(39, 28, 'LaCie 2big RAID STHJ4000800', '007', 'Black', '<div>Key Features: Hard drive array</div><div>4 TB</div><div>2 bays</div><div>HDD 2 TB x 2</div><div>USB 3.1 Gen 2 (external)</div><div>with 5 years Rescue Data Recovery Service Plan</div>', 260.00, '1607782860-lacie-2big-raid-sthj4000800.png', '2020-12-12 07:21:00', '2020-12-12 07:21:00'),
+(32, 25, 'LTS LTN8708K-HT 8 Channel Hybrid Network Video Recorder - No HDD included', '005', 'White', '<div>Key features:</div><div>8 Channel Hybrid Network Video Recorder</div><div>No HDD included</div><div>Support 4K/8MP HD-TVI 4.0 Cameras</div><div>1x HDMI, 1x VGA</div><div>Support 6MP IP Cameras</div><div>4K (3840x2160) HDMI Video Output</div><div>H.265+/H.265/H.264 Zip+/H.264</div><div>Support 8CH HD-TVI and 4CH IP Cameras</div><div>2x SATA ports, up to 8TB each HDD</div><div>1U chassis</div>', 354.00, '1607780439-lts-ltn8708k-ht-8-channel-hybrid-network-video-recorder-no-hdd-included.png', '2018-12-05 19:50:07', '2020-12-12 06:40:39'),
+(34, 12, 'LTS CMIP9362W-M 6MP IR H.265+ Outdoor Bullet IP Security Camera', '004', 'White', '<div>Key features of LTS CMIP9362W-M</div><div>6MP High Definition</div><div>3072x2048@20fps</div><div>4mm Fixed Lens</div><div>Matrix IR 2.0, IR Range up to 100 feet</div><div>H.265, H.265+, H.264, H.264+ Ready</div><div>True WDR 120dB</div><div>Weatherproof IP67</div><div>MicroSD Slot up to 128GB</div><div>DC 12V, PoE</div>', 262.00, '1607779903-lts-cmip9362w-m-6mp-ir-h265-outdoor-bullet-ip-security-camera.png', '2018-12-05 20:02:12', '2020-12-12 06:31:44'),
+(35, 12, 'LTS CMIP7863W-SZ 6MP IR H.265 Outdoor Dome IP Security Camera', '003', 'White', '<div>Key features of LTS CMIP7863W-SZ</div><div>6MP High Definition</div><div>Up to 3072x2048@20fps</div><div>2.8-12mm Varifocal Motorized Lens with Smart Focus</div><div>0.018 Lux @ F1.6</div><div>Matrix IR 2.0, IR Range up to 100 feet</div><div>H.265, H.265+, H.264, H.264+ Ready</div><div>True WDR 120dB</div><div>Weatherproof IP67</div><div>Vandal Proof IK10</div><div>MicroSD Slot up to 128GB</div><div>Audio I/O, Alarm I/O</div><div>DC 12V, PoE</div><div>Built-in Junction Box</div><div>Dimensions:Φ 6 .04″ x 5.24″(Φ 153.4x 133.1 mm)</div><div>ONVIF</div>', 450.00, '1607779449-lts-cmip7863w-sz-6mp-ir-h265-outdoor-dome-ip-security-camera.png', '2018-12-05 20:04:54', '2020-12-12 06:24:09'),
+(37, 12, 'LTS CMIP7362W-28M 6MP IR H.265 Outdoor Dome IP Security Camera', '002', 'White', '<div>Key features:</div><div>6MP High Definition</div><div>3072x2048@20fps</div><div>2.8mm Fixed Lens</div><div>Matrix IR 2.0, IR Range up to 100 feet</div><div>H.265, H.265+, H.264, H.264+ MJPEG</div><div>True WDR 120dB</div><div>IP67 Weatherproof</div><div>IK10 Vandal Proof</div><div>MicroSD Slot up to 128GB</div><div>DC 12V, PoE</div><div>Dimensions:4.4″ x 3.2″ (Φ 111x 82.4 mm)</div><div>ONVIF</div>', 237.00, '1607782445-lts-cmip7362w-28m-6mp-ir-h265-outdoor-dome-ip-security-camera.png', '2020-12-12 07:14:06', '2020-12-12 07:14:06'),
+(40, 28, 'LaCie 2big Dock Thunderbolt 3', '008', 'Gray', '<div>Hard drive array</div><div>8 TB</div><div>2 bays (SATA-600)</div><div>HDD 4 TB x 2</div><div>USB 3.1, Thunderbolt 3 (external)</div>', 785.00, '1607783058-lacie-2big-dock-thunderbolt-3.png', '2020-12-12 07:24:18', '2020-12-12 07:24:18'),
+(41, 28, 'LaCie 2big Dock Thunderbolt 3', '009', 'Gray', '<div>Hard drive array</div><div>16 TB</div><div>2 bays (SATA-600)</div><div>HDD 8 TB x 2</div><div>USB 3.1, Thunderbolt 3 (external)</div>', 1110.00, '1607783206-lacie-2big-dock-thunderbolt-3.png', '2020-12-12 07:26:46', '2020-12-12 07:26:46'),
+(42, 28, 'LaCie 6big Thunderbolt 3 STFK24000400', '010', 'Gray', '<div>Hard drive array</div><div>24 TB</div><div>6 bays (SATA)</div><div>HDD 4 TB x 6</div><div>USB 3.1, Thunderbolt 3 (external)</div>', 2605.00, '1607783371-lacie-6big-thunderbolt-3-stfk24000400.png', '2020-12-12 07:29:31', '2020-12-12 07:29:31'),
+(43, 28, 'LaCie 1big Dock SSD Pro STHW4000800', '011', 'Black', '<div>Quad-core 4-bay NAS with AES-NI</div><div>support, with over 1,099 MB/s reading</div><div>and 401 MB/s writing performance</div><div>• PCIe slot for optional 10GbE add-in</div><div>network interface card</div><div>• Four 1GbE (RJ-45) ports with failover</div><div>and Link Aggregation support</div><div>• 2GB DDR3 memory, expandable up to</div><div>16GB</div><div>• Scale up to 8 drives with RX418</div><div>expansion unit2</div><div>• Redundant power supplies ensure</div><div>service uptime (RS818RP+ only)</div>', 1016.00, '1607783456-lacie-1big-dock-ssd-pro-sthw4000800.png', '2020-12-12 07:30:56', '2020-12-12 07:30:56'),
+(44, 30, 'Rack Station RS1219+', '012', 'Black', '<div>CPU Model&nbsp; Intel Atom C2538</div><div>CPU Architecture&nbsp; 64-bit</div><div>CPU Frequency&nbsp; 4-core 2.4 GHz</div><div>System Memory&nbsp; 2 GB DDR3L non-ECC SODIMM</div><div>Memory Module Pre-installed&nbsp; 2 GB (2 GB x 1)</div><div>Total Memory Slots&nbsp; 2</div><div>Maximum Memory Capacity&nbsp; 16 GB (8 GB x 2)</div><div>Drive Bays&nbsp; 8</div><div>Maximum Drive Bays with Expansion Unit&nbsp; 12 (RX418 x 1)</div><div>Compatible Drive Type* (See all supported drives)&nbsp;&nbsp;</div><div>3.5\" SATA HDD</div><div>2.5\" SATA HDD</div><div>2.5\" SATA SSD</div><div>Maximum Single Volume Size*&nbsp; 108 TB</div><div>Hot Swappable Drive&nbsp;&nbsp;</div><div>RJ-45 1GbE LAN Port&nbsp; 4 (with Link Aggregation / Failover support)</div><div>USB 3.0 Port&nbsp; 2</div><div>eSATA Port&nbsp; 1</div><div>Form Factor (RU)&nbsp; 2U</div><div>Size (Height x Width x Depth)&nbsp; 88 mm x 481.9 mm x 306.6 mm</div><div>Weight&nbsp; 6.9 kg</div><div>Rack Installation Support*&nbsp;&nbsp;</div><div>2-post 19\" rack (direct mounting)</div><div>4-post 19\" rack (Synology Rail Kit - RKS1317)</div><div>Notes&nbsp; The rail kit is sold separately</div>', 1177.00, '1607783679-rack-station-rs1219.jpg', '2020-12-12 07:34:39', '2020-12-12 07:34:39'),
+(45, 12, 'Synology DS1019+', '013', 'Black', '<div>Quad-core CPU with AES-NI encryption engine, delivering reading and writing throughput at over 225 MB/s even when data are encrypted. Loaded with two 4GB DDR3L memory module, providing 8GB memory capacity in total. Power Supply Unit / Adapter - 120 W. AC Input Power Voltage - 100 V to 240 V AC.Power Frequency - 50/60 Hz, Single Phase.Built-in two M.2 NVMe SSD slots for system cache support; Dual 1GbE (RJ-45) ports with failover and Link Aggregation support.</div><div>•&nbsp; Dual-channel H.264/H.265 4K video transcoding on the fly</div><div>•&nbsp; Scalable up to 10 drives with one expansion unit DX517 connected</div><div>•&nbsp; Connectivity technology: Bluetooth</div>', 802.00, '1607786583-synology-ds1019.png', '2020-12-12 07:46:30', '2020-12-12 08:23:03');
 
 -- --------------------------------------------------------
 
@@ -593,18 +581,16 @@ INSERT INTO `products` (`id`, `categories_id`, `p_name`, `p_code`, `p_color`, `d
 -- Table structure for table `product_att`
 --
 
-DROP TABLE IF EXISTS `product_att`;
-CREATE TABLE IF NOT EXISTS `product_att` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product_att` (
+  `id` int(10) UNSIGNED NOT NULL,
   `products_id` int(11) NOT NULL,
   `sku` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `size` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` double(8,2) NOT NULL,
   `stock` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `product_att`
@@ -642,15 +628,13 @@ INSERT INTO `product_att` (`id`, `products_id`, `sku`, `size`, `price`, `stock`,
 -- Table structure for table `tblgallery`
 --
 
-DROP TABLE IF EXISTS `tblgallery`;
-CREATE TABLE IF NOT EXISTS `tblgallery` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tblgallery` (
+  `id` int(10) UNSIGNED NOT NULL,
   `products_id` int(11) NOT NULL,
   `image` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tblgallery`
@@ -691,9 +675,8 @@ INSERT INTO `tblgallery` (`id`, `products_id`, `image`, `created_at`, `updated_a
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -702,15 +685,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci,
+  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `city` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `state` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `country` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pincode` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `mobile` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `mobile` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
@@ -719,6 +700,154 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `admin`, `remember_token`, `created_at`, `updated_at`, `address`, `city`, `state`, `country`, `pincode`, `mobile`) VALUES
 (1, 'WeShare', 'demo@gmail.com', NULL, '$2y$10$m9fNpTgwyBVqqVfsJ9bXUensvx5iqlYhzqmL3khhSpKpgqNQnW0t2', 1, 'eXRJYaZCo6qXgGfTHiOFvShGWta2eLgaIhcBVfa9ppQnN5SFFH7yo516DQs1', '2018-10-15 02:32:54', '2018-12-05 01:39:52', '123 Street', 'Phnom Penh', 'PP', 'Cambodia', '12252', '010313234'),
 (4, 'weshare', 'weshare@gmail.com', NULL, '$2y$10$3Ccxg17LYw/.qS7ib5Xcr.T5po6AXUsnjEcEI4IHcQ0MGkcuRfO.O', NULL, 'za7FtmzYvfzBYmkQtE5tfvStl7dY3Z6uZKSpuRtBRIvlbXzM0csZEQYzjuEb', '2018-12-06 01:40:27', '2018-12-06 01:40:27', NULL, NULL, NULL, NULL, NULL, NULL);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`name`);
+
+--
+-- Indexes for table `countries`
+--
+ALTER TABLE `countries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `coupons`
+--
+ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `delivery_address`
+--
+ALTER TABLE `delivery_address`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_att`
+--
+ALTER TABLE `product_att`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tblgallery`
+--
+ALTER TABLE `tblgallery`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT for table `countries`
+--
+ALTER TABLE `countries`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=298;
+
+--
+-- AUTO_INCREMENT for table `coupons`
+--
+ALTER TABLE `coupons`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `delivery_address`
+--
+ALTER TABLE `delivery_address`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT for table `product_att`
+--
+ALTER TABLE `product_att`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `tblgallery`
+--
+ALTER TABLE `tblgallery`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
