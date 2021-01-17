@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>@yield('title','Master Page')</title>
+    <link rel="icon" href="{{asset('frontEnd/images/home/icon-webpage.png')}}" sizes="16x16"/>
     <link href="{{asset('frontEnd/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('frontEnd/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('frontEnd/css/prettyPhoto.css')}}" rel="stylesheet">

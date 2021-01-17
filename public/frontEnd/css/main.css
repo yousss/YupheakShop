@@ -343,6 +343,13 @@ ul.sub-menu {
     transform: translateY(0);
   }
 }
+/* order-sumary */
+.border-none{
+  border-style:none !important;
+}
+.img-payment{
+  display:inline-flex;
+}
   
 /*************************
 *******Footer CSS******
