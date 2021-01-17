@@ -108,7 +108,7 @@
                             @endif
                         </ul>
                         <div style="margin-left: 20px;"><a class="btn btn-default check_out" href="{{url('/check-out')}}">Check Out</a></div>
-                        <div style="margin-left: 20px;"><a class="btn btn-default check_out" href="{{url('/order-review')}}">Customer Order Summary</a></div>
+                        
                     </div>
                 </div>
             </div>
