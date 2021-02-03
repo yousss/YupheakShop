@@ -19,7 +19,7 @@ class IndexController extends Controller
         return view('frontEnd.contact_us');
     }
     public function shop(){
-        $products=Products_model::all();
+        $products=Products_model::paginate(8);
         $byCate="";
         return view('frontEnd.products',compact('products','byCate'));
     }
