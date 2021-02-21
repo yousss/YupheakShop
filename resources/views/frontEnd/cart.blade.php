@@ -15,7 +15,7 @@
                     <thead>
                     <tr class="cart_menu">
                         <td class="image">Item</td>
-                        <td class="description"></td>
+                        <td class="description text-center">Description</td>
                         <td class="price">Price</td>
                         <td class="quantity">Quantity</td>
                         <td class="total">Total</td>
@@ -33,14 +33,16 @@
                                         <a href=""><img src="{{url('products/small',$image_product->image)}}" alt="" style="width: 100px;"></a>
                                     @endforeach
                                 </td>
-                                <td class="cart_description">
-                                    <h4><a href="">{{$cart_data->product_name}}</a></h4>
-                                    <p>{{$cart_data->product_code}} | {{$cart_data->size}}</p>
+                                <td class="text-center">
+                                    <h4 class="cart_description">
+                                        <p>{{$cart_data->product_name}}</p>
+                                        <p>{{$cart_data->product_code}} | {{$cart_data->size}}</p>
+                                    </h4>
                                 </td>
-                                <td class="cart_price">
+                                <td class="cart_price text-right">
                                     <p>${{$cart_data->price}}</p>
                                 </td>
-                                <td class="cart_quantity">
+                                <td class="cart_quantity text-right">
                                     <div class="cart_quantity_button">
                                         <a class="cart_quantity_up" href="{{url('/cart/update-quantity/'.$cart_data->id.'/1')}}"> + </a>
                                         <input class="cart_quantity_input" type="text" name="quantity" value="{{$cart_data->quantity}}" autocomplete="off" size="2">
@@ -49,7 +51,7 @@
                                         @endif
                                     </div>
                                 </td>
-                                <td class="cart_total">
+                                <td class="cart_total text-right">
                                     <p class="cart_total_price">$ {{$cart_data->price*$cart_data->quantity}}</p>
                                 </td>
                                 <td class="cart_delete">

@@ -56,15 +56,10 @@
                         <span>
                             <span id="dynamic_price">US ${{$detail_product->price}}</span>
                             <label>Quantity:</label>
-                            <!-- <input type="text" name="quantity" value="{{$totalStock}}" id="inputStock"/> -->
+                            <input type="text" name="quantity" value="{{$totalStock}}" id="inputStock"/>
                             <input type="text" name="quantity" value="1" id="inputStock"/>
 
-                            @if($totalStock>0)
-                            <button type="submit" class="btn btn-fefault cart" id="buttonAddToCart">
-                                <i class="fa fa-shopping-cart"></i>
-                                Add to cart
-                            </button>
-                            @endif
+                            
                         </span>
                         <p><b>Availability:</b>
                             @if($totalStock>0)
@@ -74,6 +69,12 @@
                             @endif
                         </p>
                         <p><b>Condition:</b> New</p>
+                        @if($totalStock>0)
+                            <button type="submit" class="btn btn-fefault cart" id="buttonAddToCart">
+                                <i class="fa fa-shopping-cart"></i>
+                                Add to cart
+                            </button>
+                        @endif
                         <!-- <a href=""><img src="{{asset('frontEnd/images/product-details/share.png')}}" class="share img-responsive"  alt="" /></a> -->
                     </div><!--/product-information-->
                 </form>

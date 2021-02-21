@@ -68,7 +68,7 @@
                                 <thead>
                                 <tr class="cart_menu">
                                     <td class="image">Item</td>
-                                    <td class="description"></td>
+                                    <td class="description text-center">Description</td>
                                     <td class="price">Price</td>
                                     <td class="quantity">Quantity</td>
                                     <td class="total">Total</td>
@@ -85,18 +85,20 @@
                                             <a href=""><img src="{{url('products/small',$image_product->image)}}" alt="" style="width: 100px;"></a>
                                         @endforeach
                                     </td>
-                                    <td class="cart_description">
-                                        <h4><a href="">{{$cart_data->product_name}}</a></h4>
-                                        <p>{{$cart_data->product_code}} | {{$cart_data->size}}</p>
+                                    <td class="text-center">
+                                        <h4 class="cart_description">
+                                            <p>{{$cart_data->product_name}}</p>
+                                            <p>{{$cart_data->product_code}} | {{$cart_data->size}}</p>
+                                        </h4>
                                     </td>
-                                    <td class="cart_price">
+                                    <td class="cart_price text-right">
                                         <p>${{$cart_data->price}}</p>
                                     </td>
-                                    <td class="cart_quantity">
+                                    <td class="cart_quantity text-right">
                                         <p>{{$cart_data->quantity}}</p>
                                     </td>
-                                    <td class="cart_total">
-                                        <p class="cart_total_price">$ {{$cart_data->price*$cart_data->quantity}}</p>
+                                    <td class="cart_total text-right">
+                                        <p class="cart_total_price text-right">$ {{$cart_data->price*$cart_data->quantity}}</p>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -105,8 +107,8 @@
                                     <td colspan="2">
                                         <table class="table table-condensed total-result">
                                             <tr>
-                                                <td>Cart Sub Total</td>
-                                                <td>$ {{$total_price}}</td>
+                                                <td><h4>Cart Sub Total</h4></td>
+                                                <td class="text-primary"><h4> $ {{$total_price}}</h4></td>
                                             </tr>
                                             @if(Session::has('discount_amount_price'))
                                                 <tr class="shipping-cost">
@@ -119,8 +121,8 @@
                                                 </tr>
                                             @else
                                                 <tr>
-                                                    <td>Total</td>
-                                                    <td><span>$ {{$total_price}}</span></td>
+                                                    <td><h4>Total</h4></td>
+                                                    <td class="text-primary"><h4>$ {{$total_price}}</h4></td>
                                                 </tr>
                                             @endif
                                         </table>
