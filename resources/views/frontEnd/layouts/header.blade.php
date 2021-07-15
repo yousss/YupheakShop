@@ -1,14 +1,14 @@
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
-            <div class="row ">
+            <div class="row">
                 <div class="col-sm-3">
                 <div class="logo pull-left">
                     <a href="{{url('/')}}"><img id="image" style="width:200px; margin-top:3px" src="{{asset('frontEnd/images/home/logo_shopNex.png')}}" alt="" /></a>
                 </div>
                     <!-- <div class="contactinfo ">
                         <ul class="nav nav-pills">
-                            <li><a href="#"><i class="fa fa-phone"></i> +855 89/87 961 668</a></li>
+                            <li><a href="#"><i class="fa fa-phone"></i> +855 89/87 961 669</a></li>
                             <li><a href="#"><i class="fa fa-envelope"></i> iss.solu@gmail.com</a></li>
                         </ul>
                     </div> -->
@@ -98,7 +98,7 @@
     <div class="header-bottom"><!--header-bottom-->
         <div class="container">
             <div class="row">
-                <div class="col-sm-9">
+                <div class="col-sm-7">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
@@ -130,10 +130,12 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
-                    </div>
+                <div class="col-sm-5">
+                    <form action="search" method="get">
+                        <div class="search_box pull-right">
+                            <input type="search" name="search" placeholder="Product Name "/>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

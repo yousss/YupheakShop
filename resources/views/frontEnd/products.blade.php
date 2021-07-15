@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="section mb-5">
-            <img src="{{asset('frontEnd/images/home/Welcome.png')}}" alt="Logo" style="height:100%; width:100%;"/> 
+            <img src="{{asset('frontEnd/images/home/Welcome.png')}}" alt="Logo" style="height:100%; width:100%; margin-top:-5%;"/> 
         </div>
         <div class="row">
             <div class="col-sm-3">
@@ -23,7 +23,7 @@
                     ?>
                     <div class="row row-flex">
                     @foreach($products as $product)
-                    <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="col-lg-3 col-md-4 col-sm-4">
 
                         @if($product->category->status==1)
                             <div class="product-image-wrapper">
@@ -48,7 +48,7 @@
 
                     @endforeach
                     </div>
-                   <div style="margin-left: 30%">{!! $products !!}</div>
+                    <div style="margin-left: 30%">{!! $products !!}</div>
                 </div><!--features_items-->
             </div>
         </div>

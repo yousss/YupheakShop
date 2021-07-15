@@ -14,6 +14,13 @@ class IndexController extends Controller
         $products=Products_model::all();
         return view('frontEnd.index',compact('products'));
     }
+    public function search(Request $request){
+        $search = $request->get('search');
+        $byCate="";
+        $products= Products_model::where('p_name', 'like' , '%'.$search.'%' )->paginate(8);
+        return view('frontEnd.products',compact('products','byCate'));
+    }
+    
     public function contactUs(){
         
         return view('frontEnd.contact_us');
@@ -24,8 +31,8 @@ class IndexController extends Controller
         return view('frontEnd.products',compact('products','byCate'));
     }
     public function listByCat($id){
-        $list_product=Products_model::where('categories_id',$id)->get();
-        $byCate=Category_model::select('name')->where('id',$id)->first();
+        $list_product=Products_model::where('categories_id',$id)->paginate(8);
+        $byCate=Category_model::select('name')->where('id',$id)->paginate(8)->first();
         return view('frontEnd.products',compact('list_product','byCate'));
     }
     public function detialpro($id){
