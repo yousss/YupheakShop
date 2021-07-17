@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/homepage', 'IndexController@index');
-Route::get('/', 'IndexController@shop');
+Route::get('/', 'IndexController@shop')->name('shop');
 Route::get('/suggested/search', 'IndexController@suggestedSearch')->name('suggestedSearch');
 Route::get('/contact-us', 'IndexController@contactUs');
 Route::get('/list-products', 'IndexController@shop');

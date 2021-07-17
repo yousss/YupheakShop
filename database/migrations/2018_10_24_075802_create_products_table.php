@@ -13,6 +13,8 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('products');
+
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('categories_id');
@@ -22,6 +24,10 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->float('price');
             $table->string('image');
+            $table->boolean('is_new')->default(true);
+            $table->date('age')->nullable();
+            $table->string('made_in', 50)->nullable();
+            $table->float('tax_included')->nullable();
             $table->timestamps();
         });
     }

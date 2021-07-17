@@ -253,13 +253,6 @@
         display: inline-block;
     }
 
-    .single-widget {
-    }
-
-    .product-information span {
-        display: block;
-    }
-
     #similar-product {
         margin-bottom: 40px;
     }
@@ -507,7 +500,6 @@
     }
 
     .product-information {
-        padding-left: 0;
         text-align: center;
     }
 

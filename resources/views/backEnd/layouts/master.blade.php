@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>@yield('title','Master Page')</title>
     <meta charset="UTF-8" />
@@ -17,17 +18,20 @@
     <link href="{{asset('font-awesome/css/font-awesome.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('css/jquery.gritter.css')}}" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
 </head>
+
 <body>
 
-@include('backEnd.layouts.header')
-@include('backEnd.layouts.nav')
+    @include('backEnd.layouts.header')
+    @include('backEnd.layouts.nav')
 
-<!--main-container-part-->
-<div id="content">
-    @yield('content')
-</div>
-@include('backEnd.layouts.footer')
-@yield('jsblock')
+    <!--main-container-part-->
+    <div id="content">
+        @yield('content')
+    </div>
+    @include('backEnd.layouts.footer')
+    @yield('jsblock')
 </body>
+
 </html>

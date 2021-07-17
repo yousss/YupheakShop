@@ -13,18 +13,24 @@
     <link href="{{asset('frontEnd/css/prettyPhoto.css')}}" rel="stylesheet">
     <link href="{{asset('frontEnd/css/price-range.css')}}" rel="stylesheet">
     <link href="{{asset('frontEnd/css/animate.css')}}" rel="stylesheet">
-    <link href="{{asset('frontEnd/css/main.css')}}" rel="stylesheet">
     <link href="{{asset('frontEnd/css/responsive.css')}}" rel="stylesheet">
+    <link href="{{asset('frontEnd/css/owl.carousel.min.css')}}" rel="stylesheet">
+    <link href="{{asset('frontEnd/css/owl.theme.default.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="{{asset('frontEnd/css/main.css')}}" rel="stylesheet">
+
     <!--[if lt IE 9]>
     <script src="{{asset('frontEnd/js/html5shiv.js')}}"></script>
     <script src="{{asset('frontEnd/js/respond.min.js')}}"></script>
     <![endif]-->
     <link rel="stylesheet" href="{{asset('easyzoom/css/easyzoom.css')}}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <!--/head-->
 
 <body>
+
+
     @include('frontEnd.layouts.header')
     @section('slider')
     @include('frontEnd.layouts.slider')
@@ -39,6 +45,30 @@
     <script src="{{asset('frontEnd/js/main.js')}}"></script>
     <script src="{{asset('easyzoom/dist/easyzoom.js')}}"></script>
     <script src="{{ asset('frontEnd/js/bootrap.typehead.js') }}"></script>
+    <script src="{{ asset('frontEnd/js/owl.carousel.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @if(Session::has('message'))
+    <script>
+        var type = "{{ Session::get('alert-type', 'info') }}";
+        switch (type) {
+            case 'info':
+                toastr.info("{{ Session::get('message') }}");
+                break;
+
+            case 'warning':
+                toastr.warning("{{ Session::get('message') }}");
+                break;
+
+            case 'success':
+                toastr.success("{{ Session::get('message') }}");
+                break;
+
+            case 'error':
+                toastr.error("{{ Session::get('message') }}");
+                break;
+        }
+    </script>
+    @endif
     <script>
         var path = "{{ route('suggestedSearch') }}";
         $('#search').typeahead({
@@ -92,6 +122,30 @@
                 $this.text("Switch off").data("active", true);
                 api2._init();
             }
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $(".owl-carousel").owlCarousel({
+                rtl: true,
+                loop: true,
+                margin: 10,
+                nav: true,
+                autoplay: true,
+                autoplayTimeout: 2000,
+                autoplayHoverPause: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 2
+                    },
+                    1000: {
+                        items: 3
+                    }
+                }
+            });
         });
     </script>
 </body>
