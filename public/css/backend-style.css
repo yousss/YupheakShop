@@ -1,0 +1,98 @@
+.bi {
+    font-size: 0.9rem;
+    margin: 3px;
+}
+.bi.bi-plus {
+    font-size: 1.5rem;
+    margin: 0;
+}
+.error {
+    color: red;
+    font-style: italic;
+}
+.control-group {
+    display: flex;
+    align-items: center;
+}
+.qty {
+    border: 1px solid;
+    text-align: center;
+    width: 40px;
+    border-radius: 5px !important;
+}
+.row {
+    flex-wrap: wrap;
+    display: flex;
+}
+.row .col-md-6 {
+    flex-basis: 50%;
+}
+.input-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.input-group label {
+    margin: 10px 0px;
+    flex-basis: 30%;
+}
+.dataTables_filter input {
+    border-radius: 5px;
+    height: 30px;
+    width: 300px;
+    border: 1px solid #ada6ad;
+}
+.text-right {
+    justify-content: flex-end;
+    margin: 10px 0;
+}
+.input-group .value {
+    margin: 10px 0px;
+    flex-basis: 70%;
+}
+.link-to-ordered-item:hover {
+    text-decoration: underline;
+}
+.action-wrapper {
+    width: 78px;
+}
+.top-wrapper {
+    display: flex;
+    flex: 1;
+}
+
+.ordered-item-container .row {
+    margin-left: 0;
+}
+.detail-box-wrapper {
+    max-width: 300px;
+    border: 1px solid #ccc;
+    margin: 10px;
+    background-color: aliceblue;
+    box-shadow: 0px 3px 2px 0px #c7bbbb;
+    border-radius: 3px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+.detail-box-wrapper .box-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(215, 228, 215);
+}
+.detail-box-wrapper .box-row .box-label {
+    font-weight: 400;
+}
+.detail-box-wrapper .box-row .box-value {
+    font-weight: 500;
+    max-width: 140px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: right;
+}
+.detail-box-wrapper .box-row .grand-total {
+    font-weight: 800;
+}

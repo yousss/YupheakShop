@@ -22,12 +22,13 @@ Route::get('/contact-us', 'IndexController@contactUs');
 Route::get('/list-products', 'IndexController@shop');
 Route::get('/search', 'IndexController@search')->name('search');
 Route::get('/cat/{id}', 'IndexController@listByCat')->name('cats');
-Route::get('/product-detail/{id}', 'IndexController@detialpro');
+Route::get('/product-detail/{id}', 'IndexController@detialpro')->name('productDetail');
 ////// get Attribute ////////////
-Route::get('/get-product-attr', 'IndexController@getAttrs');
+Route::get('/product-attr', 'IndexController@getAttrs')->name('productAttributes');
+Route::get('/images/galleries/{product_id?}', 'ImagesController@index')->name('imageGalleries');
 ///// Cart Area /////////
-Route::post('/addToCart', 'CartController@addToCart')->name('addToCart');
-Route::get('/viewcart', 'CartController@index');
+Route::post('/add-to-cart', 'CartController@addToCart')->name('addToCart');
+Route::get('/cart', 'CartController@index')->name('viewcart');
 Route::get('/cart/deleteItem/{id}', 'CartController@deleteItem');
 Route::get('/cart/update-quantity/{id}/{quantity}', 'CartController@updateQuantity');
 /////////////////////////
@@ -48,11 +49,14 @@ Route::group(['middleware' => 'FrontLogin_middleware'], function () {
     Route::post('/submit-checkout', 'CheckOutController@submitcheckout');
     Route::get('/order-review', 'OrdersController@index');
     Route::post('/submit-order', 'OrdersController@order');
-    Route::get('/cod', 'OrdersController@cod');
-    Route::get('/paypal', 'OrdersController@paypal');
+    Route::get('/success/{type?}', 'OrdersController@success')->name('success');
+    Route::get('/history', 'OrdersController@orderHistory')->name('history');
+    // paypal phase
+    Route::get('paywithpaypal', array('as' => 'paywithpaypal', 'uses' => 'OrdersController@payWithPaypal',));
+    Route::get('paywithpaypal/success', array('as' => 'paywithpaypalSuccess', 'uses' => 'OrdersController@payWithPaypalSuccess',));
+    // paypal phase end
 });
 ///
-
 
 
 
@@ -82,5 +86,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     /// ///////// Coupons Area //////////
     Route::resource('/coupon', 'CouponController');
     Route::get('delete-coupon/{id}', 'CouponController@destroy');
-    ///
+    /// Invoices
+
+    Route::resource('/invoices', 'InvoiceController');
+    Route::get('ordered-item/remove/{itemId}/{productAttributeId}/{amountStock}', 'InvoiceController@removeItemFromInvoice')->name('remove-item-from-invoice');
+    Route::get('shipping/addresses', 'InvoiceController@getShippingAddresses')->name('shippin-addresses');
+    Route::post('shipping/addresses', 'ShippingAddressController@store')->name('shippin-addresses');
+    Route::post('add/ordered-item', 'InvoiceController@addOrderedItem')->name('add-ordered-items');
+    Route::get('invoices/items/{orderedItemsId?}', 'InvoiceController@showOrderedItems')->name('orderedItem');
 });

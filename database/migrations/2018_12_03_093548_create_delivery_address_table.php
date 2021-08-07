@@ -16,14 +16,14 @@ class CreateDeliveryAddressTable extends Migration
         Schema::create('delivery_address', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('users_id');
-            $table->string('users_email');
+            $table->string('users_email')->nullable();
             $table->string('name');
             $table->string('address');
-            $table->string('city');
-            $table->string('state');
-            $table->string('country');
-            $table->string('pincode');
-            $table->string('mobile');
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('country')->nullable();
+            $table->string('pincode')->nullable();
+            $table->string('mobile')->nullable();
             $table->timestamps();
         });
     }

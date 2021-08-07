@@ -24,8 +24,8 @@
         width: 65px;
     }
 
-    #cart_items .cart_info .cart_description h4,
-    #cart_items .cart_info .cart_description p {
+    .cart_items .cart_info .cart_description h4,
+    .cart_items .cart_info .cart_description p {
         text-align: center;
     }
 }
@@ -96,8 +96,8 @@
         padding: 5px 6px;
     }
 
-    #cart_items .cart_info .cart_description h4,
-    #cart_items .cart_info .cart_description p {
+    .cart_items .cart_info .cart_description h4,
+    .cart_items .cart_info .cart_description p {
         text-align: center;
     }
 

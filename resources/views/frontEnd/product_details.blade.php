@@ -18,16 +18,9 @@
                             <img src="{{url('products/small',$detail_product->image)}}" alt="" id="dynamicImage" />
                         </a>
                     </div>
-
-                    <ul class="thumbnails" style="margin-left: -10px;">
-                        <li>
-                            @foreach($imagesGalleries as $imagesGallery)
-                            <a href="{{url('products/large',$imagesGallery->image)}}" data-standard="{{url('products/small',$imagesGallery->image)}}">
-                                <!-- <img src="{{url('products/small',$imagesGallery->image)}}" alt="" width="75" style="padding: 8px;"> -->
-                            </a>
-                            @endforeach
-                        </li>
-                    </ul>
+                    <p class="show-image-galleries">
+                        <a href="{{ route('imageGalleries',['product_id' => $detail_product->id]) }}">See more images</a>
+                    </p>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
                     <form action="{{route('addToCart')}}" method="post" role="form">
@@ -45,27 +38,27 @@
                             <span>
                                 <select name="size" id="idSize" class="form-control">
                                     <option value="">Select Size</option>
-                                    @foreach($detail_product->attributes as $attrs)
+                                    @foreach($detail_product->productAttributes as $attrs)
                                     <option value="{{$detail_product->id}}-{{$attrs->size}}">{{$attrs->size}}</option>
                                     @endforeach
                                 </select>
-                            </span><br>
+                            </span>
+                            <br>
                             <span class="price-qty-wrapper">
-                                <span id="dynamic_price"> $ {{$detail_product->price}}</span>
+                                <span id="dynamic_price"> ${{$detail_product->price}}</span>
                                 <div class="qty">
                                     <label>Quantity:</label>
-                                    <input type="text" class="form-control" name="quantity" value="{{$totalStock}}" id="inputStock" />
-                                    <input type="text" class="form-control" name="quantity" value="1" id="inputStock" />
+                                    <input type="text" class="form-control" name="quantity" value="1" />
                                 </div>
                             </span>
                             <p><b>Availability:</b>
                                 @if($totalStock>0)
-                                <span id="availableStock">In Stock</span>
+                                <span id="availableStock">In Stock <span id="inputStock"></span></span>
                                 @else
                                 <span id="availableStock">Out of Stock</span>
                                 @endif
                             </p>
-                            <p><b>Condition:</b> New</p>
+                            <p><b>Condition: </b>{{ $detail_product->is_new === 1 ? 'New': "Second hand" }}</p>
                             @if($totalStock>0)
                             <button type="submit" class="btn add-to-cart" id="buttonAddToCart">
                                 <i class="fa fa-shopping-cart"></i>
@@ -187,7 +180,7 @@
                                 <img src="{{url('/products/small',$item->image)}}" alt="" />
                                 <h2>$ {{$item->price}}</h2>
                                 <p>{{$item->p_name}}</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                <a href="{{url('/product-detail',$item->id)}}" class="btn btn-default add-to-cart">View Product</a>
                             </div>
                         </div>
                     </div>

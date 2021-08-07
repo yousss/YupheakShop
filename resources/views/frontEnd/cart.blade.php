@@ -1,15 +1,10 @@
 @extends('frontEnd.layouts.master')
-@section('title','Cart Page')
+@section('title','Your cart')
 @section('slider')
 @endsection
 @section('content')
-<section id="cart_items" style="margin-top: 20px;">
+<section class="cart_items" style="margin-top: 20px;">
     <div class="container">
-        @if(Session::has('message'))
-        <div class="alert alert-success text-center" role="alert">
-            {{Session::get('message')}}
-        </div>
-        @endif
         <div class="table-responsive cart_info">
             <table class="table table-condensed">
                 <thead>
@@ -19,35 +14,35 @@
                         <td class="price">Price</td>
                         <td class="quantity">Quantity</td>
                         <td class="total">Total</td>
-                        <td></td>
+                        <td>Action</td>
                     </tr>
                 </thead>
                 <tbody>
+                    @if(count($cart_datas) === 0)
+                    <tr>
+                        <td colspan="6" class="text-center">Your cart is empty</td>
+                    </tr>
+                    @endif
                     @foreach($cart_datas as $cart_data)
-                    <?php
-                    $image_products = DB::table('products')->select('image')->where('id', $cart_data->products_id)->get();
-                    ?>
                     <tr>
                         <td class="cart_product">
-                            @foreach($image_products as $image_product)
-                            <a href=""><img src="{{url('products/small',$image_product->image)}}" alt="" style="width: 100px;"></a>
-                            @endforeach
+                            <a href="{{ route('productDetail',['id' =>$cart_data->products_id ]) }}">
+                                <img src="{{url('products/small',$cart_data->product->image)}}" alt="" style="width: 100px;">
+                            </a>
                         </td>
-                        <td class="text-center">
-                            <h4 class="cart_description">
-                                <p>{{$cart_data->product_name}}</p>
-                                <p>{{$cart_data->product_code}} | {{$cart_data->size}}</p>
-                            </h4>
+                        <td class="text-center cart_description">
+                            <div class="name">{{$cart_data->product_name}}</div>
+                            <div class="code">{{$cart_data->product_code}} | {{$cart_data->size}}</div>
                         </td>
                         <td class="cart_price text-right">
-                            <p>${{$cart_data->price}}</p>
+                            <div class="price"> ${{$cart_data->price}}</div>
                         </td>
                         <td class="cart_quantity text-right">
                             <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href="{{url('/cart/update-quantity/'.$cart_data->id.'/1')}}"> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="{{$cart_data->quantity}}" autocomplete="off" size="2">
+                                <a class="cart_quantity_up" href="{{url('/cart/update-quantity/'.$cart_data->id.'/1')}}"><i class="fa fa-plus" aria-hidden="true"></i> </a>
+                                <input class="cart_quantity_input form-control" type="text" name="quantity" value="{{$cart_data->quantity}}" autocomplete="off" size="2">
                                 @if($cart_data->quantity>1)
-                                <a class="cart_quantity_down" href="{{url('/cart/update-quantity/'.$cart_data->id.'/-1')}}"> - </a>
+                                <a class="cart_quantity_down" href="{{url('/cart/update-quantity/'.$cart_data->id.'/-1')}}"> <i class="fa fa-minus" aria-hidden="true"></i></a>
                                 @endif
                             </div>
                         </td>
@@ -55,7 +50,7 @@
                             <p class="cart_total_price">$ {{$cart_data->price*$cart_data->quantity}}</p>
                         </td>
                         <td class="cart_delete">
-                            <a class="cart_quantity_delete" href="{{url('/cart/deleteItem',$cart_data->id)}}"><i class="fa fa-times"></i></a>
+                            <a class="cart_quantity_delete" href="{{url('/cart/deleteItem',$cart_data->id)}}"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -73,48 +68,46 @@
             <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
         </div>
         <div class="row">
-            <div class="col-sm-6">
-                @if(Session::has('message_coupon'))
-                <div class="alert alert-danger text-center" role="alert">
-                    {{Session::get('message_coupon')}}
-                </div>
-                @endif
+            <div class="col-sm-12 col-md-6">
                 <div class="chose_area" style="padding: 20px;">
                     <form action="{{url('/apply-coupon')}}" method="post" role="form">
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                         <input type="hidden" name="Total_amountPrice" value="{{$total_price}}">
                         <div class="form-group">
                             <label for="coupon_code">Coupon Code</label>
-                            <div class="controls {{$errors->has('coupon_code')?'has-error':''}}">
-                                <input type="text" class="form-control" name="coupon_code" id="coupon_code" placeholder="Promotion By Coupon">
+                            <div class="controls {{$errors->has('coupon_code') ? 'has-error':''}}">
+                                <input type="text" class="form-control" name="coupon_code" id="coupon_code" placeholder="Promotion Coupon Code">
                                 <span class="text-danger">{{$errors->first('coupon_code')}}</span>
                             </div>
-                            <button type="submit" class="btn btn-primary">Apply</button>
+                            @if(count($cart_datas) !== 0)
+                            <button style="margin-top: 20px;" type="submit" class="btn add-to-cart">Apply</button>
+                            @endif
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="col-sm-6">
-                @if(Session::has('message_apply_sucess'))
-                <div class="alert alert-success text-center" role="alert">
-                    {{Session::get('message_apply_sucess')}}
-                </div>
-                @endif
+            <div class="col-sm-12 col-md-6">
                 <div class="total_area">
                     <ul>
                         @if(Session::has('discount_amount_price'))
-                        <li>Sub Total <span>$ {{$total_price}}</span></li>
-                        <li>Coupon Discount (Code : {{Session::get('coupon_code')}}) <span>$ {{Session::get('discount_amount_price')}}</span></li>
-                        <li>Total <span>$ {{$total_price-Session::get('discount_amount_price')}}</span></li>
+                        <li><span>Sub Total</span> <span>$ {{$total_price}}</span></li>
+                        <li><span>Coupon Discount </span><span class="code"> (Code : {{Session::get('coupon_code')}})</span>
+                            <span>$ {{Session::get('discount_amount_price')}}</span>
+                        </li>
+                        <li><span>Total</span> <span>$ {{$total_price-Session::get('discount_amount_price')}}</span></li>
                         @else
-                        <li>Total <span>$ {{$total_price}}</span></li>
+                        <li><span>Total</span> <span>$ {{$total_price}}</span></li>
                         @endif
                     </ul>
-                    <div style="margin-left: 20px;"><a class="btn btn-default check_out" href="{{url('/check-out')}}">Check Out</a></div>
-
+                    @if(count($cart_datas) !== 0)
+                    <div>
+                        <a class="btn add-to-cart check_out" href="{{url('/check-out')}}">Check Out</a>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
 <!--/#do_action-->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category_model;
 use foo\bar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
@@ -28,7 +29,7 @@ class CategoryController extends Controller
     public function create()
     {
         $menu_active = 2;
-        $plucked = Category_model::where('parent_id', 0)->pluck('name', 'id');
+        $plucked = Category_model::pluck('name', 'id');
         $cate_levels = ['0' => 'Main Category'] + $plucked->all();
         return view('backEnd.category.create', compact('menu_active', 'cate_levels'));
     }
@@ -59,8 +60,26 @@ class CategoryController extends Controller
             'url' => 'required',
         ]);
         $data = $request->all();
-        Category_model::create($data);
-        return redirect()->route('category.index')->with('message', 'Added Success!');
+        $status = $data['status'];
+        if ($status) {
+            $status = ['status' => 1];
+        }
+        $data = array_merge($data, $status);
+        try {
+            Category_model::create($data);
+            $notification = array(
+                'message' => 'You have successful added category',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('category.index')->with($notification);
+        } catch (\Exception $e) {
+            Log::error($e);
+            $notification = array(
+                'message' => 'Something went wrong',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
     }
 
     /**

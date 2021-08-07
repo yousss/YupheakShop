@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\CutStockEvent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -17,6 +18,21 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        'App\Events\StockCuttOffEvent' => [
+            'App\Listeners\StockCuttOffListener',
+        ],
+        'App\Events\DeleteItemFromCartEvent' => [
+            'App\Listeners\DeleteItemFromCartListener',
+        ],
+        'App\Events\InvoiceCreatedEvent' => [
+            'App\Listeners\InvoiceCreatedListener',
+        ],
+        'App\Events\InvoicePaidEvent' => [
+            'App\Listeners\InvoicePaidListener',
+        ],
+        'App\Events\StockAddBackEvent' => [
+            'App\Listeners\StockAddBackListener',
         ],
     ];
 

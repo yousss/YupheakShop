@@ -32,14 +32,15 @@ $(document).ready(function () {
     ///////////Size of Product
     $("#idSize").change(function () {
         var SizeAttr = $(this).val();
+        const route = "/product-attr";
         if (SizeAttr != "") {
             $.ajax({
                 type: "get",
-                url: "/get-product-attr",
+                url: route,
                 data: { size: SizeAttr },
                 success: function (resp) {
                     var arr = resp.split("#");
-                    $("#dynamic_price").html("US $" + arr[0]);
+                    $("#dynamic_price").html("$" + arr[0]);
                     $("#dynamicPriceInput").val(arr[0]);
                     if (arr[1] == 0) {
                         $("#buttonAddToCart").hide();
@@ -47,8 +48,8 @@ $(document).ready(function () {
                         $("#inputStock").val(0);
                     } else {
                         $("#buttonAddToCart").show();
-                        $("#availableStock").text("In Stock");
-                        $("#inputStock").val(arr[1]);
+                        let value = arr[1];
+                        $("#availableStock").text("In Stock (" + value + ")");
                     }
                 },
                 error: function () {

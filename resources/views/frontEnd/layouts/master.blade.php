@@ -32,8 +32,6 @@
 
 
     @include('frontEnd.layouts.header')
-    @section('slider')
-    @include('frontEnd.layouts.slider')
     @show
     @yield('content')
     @include('frontEnd.layouts.footer')

@@ -19,6 +19,10 @@ class ViewServiceProvider extends ServiceProvider
             ['frontEnd.products', 'frontEnd.product_details'],
             'App\Http\View\Composers\CategoryComposer'
         );
+        View::composer(
+            ['frontEnd.*', 'frontEnd.*'],
+            'App\Http\View\Composers\CartItemCountComposer'
+        );
 
         // Using Closure based composers...
         // View::composer('dashboard', function ($view) {

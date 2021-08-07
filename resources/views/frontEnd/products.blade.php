@@ -43,7 +43,7 @@
                     @endforeach
                     @elseif(count($products) === 0)
                     <div class="col-md-9">
-                        <h2 class="text-center">No reord found</h2>
+                        <h2 class="text-center">No record found</h2>
                     </div>
                     @endif
                 </div>

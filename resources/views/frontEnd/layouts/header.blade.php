@@ -8,7 +8,6 @@
                     <div class="logo pull-left">
                         <a href="{{url('/')}}"><img id="image" style="width:200px; margin-top:3px" src="{{asset('frontEnd/images/home/logo_shopNex.png')}}" alt="" /></a>
                     </div>
-
                 </div>
                 <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9 col-xs-12">
                     <div class="shop-menu pull-right">
@@ -51,12 +50,17 @@
                                 <a class="{{ Request::is('list-products') ? 'active' : null }}" href="{{url('/list-products')}}">Products</a>
                             </li>
                             <li>
-                                <a class="{{ Request::is('viewcart') ? 'active' : null }}" href="{{url('/viewcart')}}">Cart</a>
+                                <a class="{{ Request::is('cart') ? 'active' : null }}" href="{{route('viewcart')}}">Cart @if($itemCount > 0)<span class="badge">{{$itemCount}}</span>@endif</a>
                             </li>
 
                             <li>
                                 <a class="{{ Request::is('contact-us') ? 'active' : null }}" href="{{url('/contact-us')}}">Contact Us</a>
                             </li>
+                            @if(Auth::id())
+                            <li>
+                                <a class="{{ Request::is('history') ? 'active' : null }}" href="{{route('history')}}">Order history</a>
+                            </li>
+                            @endif
                         </ul>
                     </div>
                 </div>

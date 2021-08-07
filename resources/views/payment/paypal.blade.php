@@ -1,25 +1,60 @@
 @extends('frontEnd.layouts.master')
-@section('title','Review Order Page')
+@section('title','payment')
 @section('slider')
 @endsection
 @section('content')
-    <div class="container">
-        <h3 class="text-center">YOUR ORDER HAS BEEN PLACED</h3>
-        <p class="text-center">Your order number is <b>{{$who_buying->id}}</b> and total payment is <b>$ {{$who_buying->grand_total}}</b> </p>
-        <p class="text-center">Please make payment by clicking on below Payment Button</p>
-
-        <div class="text-center">
-            <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-            <input type="hidden" name="cmd" value="_xclick">
-            <input type="hidden" name="business" value="henglayshops@gmail.com">
-            <input type="hidden" name="item_name" value="Buyer ({{$who_buying->name}})">
-            <input type="hidden" name="amount" value="{{$who_buying->grand_total}}">
-            <input type="hidden" name="currency_code" value="USD">
-            <input type="image" name="submit"
-                   src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
-                   alt="PayPal - The safer, easier way to pay online">
-        </form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default" style="margin-top: 60px;">
+                <div class="panel-heading-success"><b>Paywith Paypal</b></div>
+                <div class="panel-body">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div id="paypal-button-container"></div>
+                    </div>
+                </div>
+                </form>
+            </div>
         </div>
     </div>
-    <div style="margin-bottom: 20px;"></div>
+</div>
+</div>
+<div style="margin-bottom: 20px;">
+</div>
+
+
+<!-- Include the PayPal JavaScript SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=AeonKnJULGrxARO4MHvx9N1dajG0NcftOl4YfgUsiy2AbZ8VtIDMr98V9ZwgB1lT7qeB2rF9y9GCKCE1&currency=USD"></script>
+
+<script>
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: "{{$amount}}"
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+                // Successful capture! For demo purposes:
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                if (transaction?.status === 'COMPLETED' && transaction.id) {
+                    const url = "{{ route('paywithpaypalSuccess') }}?status=COMPLETED&invoice_code={{$invoice_code}}"
+                    window.location.href = url;
+                }
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+</script>
 @endsection

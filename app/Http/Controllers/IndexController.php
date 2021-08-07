@@ -58,10 +58,10 @@ class IndexController extends Controller
     public function detialpro($id)
     {
         $detail_product = Products_model::findOrFail($id);
-        $imagesGalleries = ImageGallery_model::where('products_id', $id)->get();
-        $totalStock = ProductAtrr_model::where('products_id', $id)->sum('stock');
+        $totalStock = $detail_product->productAttributes->sum('stock');
+
         $relateProducts = Products_model::where([['id', '!=', $id], ['categories_id', $detail_product->categories_id]])->get();
-        return view('frontEnd.product_details', compact('detail_product', 'imagesGalleries', 'totalStock', 'relateProducts'));
+        return view('frontEnd.product_details', compact('detail_product',  'totalStock', 'relateProducts'));
     }
     public function getAttrs(Request $request)
     {
