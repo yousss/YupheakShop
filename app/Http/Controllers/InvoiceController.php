@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use PDF;
 
 class InvoiceController extends Controller
 {
@@ -145,19 +146,19 @@ class InvoiceController extends Controller
         $shipping_fee = $request->shipping_charges;
         $coupon_amount = $request->coupon_amount;
         $tax_rate = $request->tax_rate;
-        $amount = $request->amount;
+        $amount = $request->amount + $shipping_fee;
         $total_qty = $request->total_qty;
         $itemIds =  explode(',', $request->itemIds);
 
         $subTotal = ($amount * $discount) / 100;
-        $subTotal = ($subTotal - $coupon_amount + $shipping_fee);
+        $subTotal = $amount - $subTotal;
+        $subTotal = ($subTotal - $coupon_amount);
         $subTotal = ($subTotal * $tax_rate) / 100;
-        $subTotal = $subTotal > 0 ? number_format($subTotal, 2) : 0;
-
+        $subTotal = number_format($amount - $subTotal, 2);
         $code = $request->code;
         $note = $request->note;
         $paid_by = $request->paid_by;
-        $is_paid = $request->is_paid === 'OUTSTANDING' ? 0 : 1;
+        $is_paid =  0;
         $customer_id = $request->customer_id;
 
         $newParams = [
@@ -179,13 +180,14 @@ class InvoiceController extends Controller
             'created_by' => Auth::id(),
             'created_on' => now(),
             'discount_amount' => number_format(($discount * $amount) / 100, 2),
-            'amount' => $amount,
+            'amount' => $subTotal,
             'tax_rate' => $tax_rate,
             'paid_by' => $paid_by,
             'discount_rate' => $discount,
             'is_paid' => $is_paid,
             'note' => $note,
             'total_qty' =>  $total_qty,
+            'cost' => $amount
         ];
         $notifications = [
             'message' => 'Invoice has been created',
@@ -229,8 +231,17 @@ class InvoiceController extends Controller
      */
     public function edit($id)
     {
-        $invoice = Invoice::find($id);
-        return view('backEnd.invoices.edit');
+        try {
+            DB::beginTransaction();
+            $invoice = Invoice::find($id);
+            $items = $invoice->order()->with(['orderedItemsDetail'])->get();
+            DB::commit();
+            return response()->json(['qty' => $invoice->total_qty, 'items' => $items], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            throw $e;
+        }
     }
 
     /**
@@ -242,7 +253,30 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    }
+    public function updatingItem(Request $request, $id, $itemId)
+    {
+        $qty = $request->qty ?? 0;
+        try {
+            DB::beginTransaction();
+            $invoice = Invoice::find($id);
+            $invoice->total_qty = $qty;
+            // $invoice->amount = $invoice->cost - ($invoice->cost * )
+            $invoice->adjusted_by = Auth::id();
+            $invoice->order()->update(['total_qty' => $qty]);
+            OrderedItemDetail::where('id', $itemId)->update(['quantity' => $qty]);
+            $invoice->save();
+            if ($invoice) {
+                return response()->json(['success' => true]);
+            }
+            DB::commit();
+
+            return response()->json(['message' => 'Something went wrong'], 500);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            throw $e;
+        }
     }
 
     /**
@@ -258,11 +292,15 @@ class InvoiceController extends Controller
 
     public function removeItemFromInvoice($itemId, $productAttributeId, $amountStock)
     {
+        $notification = [
+            'message' => 'Item has been removed from invoice',
+            'alert-type' => 'info'
+        ];
         try {
             $item = OrderedItemDetail::find($itemId);
             $item->delete();
             event(new StockAddBackEvent($productAttributeId, $amountStock));
-            return redirect(route('invoices.create'));
+            return redirect(route('invoices.create'))->with($notification);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -270,7 +308,7 @@ class InvoiceController extends Controller
 
     public function showOrderedItems($orderedItemsId)
     {
-        $orderedItems = Orders_model::with(['orderedItemsDetail', 'shippingAddress'])->find($orderedItemsId);
+        $orderedItems = Orders_model::with(['orderedItemsDetail', 'shippingAddress', 'invoice'])->find($orderedItemsId);
         return view(
             'backEnd.invoices.ordered-items-detail',
             [
@@ -278,5 +316,43 @@ class InvoiceController extends Controller
                 'orderedItems' => $orderedItems
             ]
         );
+    }
+
+    public function pay($invoiceId)
+    {
+        try {
+            DB::beginTransaction();
+            Invoice::where('id', $invoiceId)->update([
+                'paid_at' => now(),
+                'verified_by' => Auth::id(),
+                'approved_by' => Auth::id(),
+                'issuing_on' => now(),
+                'is_paid' => 1,
+                'paid_at' => now(),
+            ]);
+            $notification = [
+                'message' => 'Invoice has been paid.',
+                'alert-type' => 'info'
+            ];
+            DB::commit();
+            return redirect(route('invoices.index'))->with($notification);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            throw $e;
+        }
+    }
+
+    public function print($orderedItemsId)
+    {
+        $orderedItems = Orders_model::with(['orderedItemsDetail', 'shippingAddress', 'invoice'])->find($orderedItemsId);
+        $pdf = PDF::loadView(
+            'backEnd.invoices.invoice-print',
+            [
+                'orderedItems' => $orderedItems,
+                'menu_active' => $this->menu_active,
+            ]
+        );
+        return $pdf->download('invoice.pdf');
     }
 }

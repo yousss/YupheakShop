@@ -175,10 +175,12 @@
                         <div class="col-sm-6 col-md-6 col-lg-6">
                             <div class="input-group">
                                 <label for="code">Invoice Code:</label>
-                                <input type="hidden" value="<?php echo $total ?>" name="amount" />
-                                <input type="hidden" value="<?php echo $total_qty ?>" name="total_qty" />
-                                <input type="hidden" name="itemIds" value="{{ substr($itemIds,0,-1) }}" />
-                                <input readonly type="text" value="{{ $invoiceCode }}" name="code" id="code" class="form-control">
+                                <div class="value">
+                                    <input type="hidden" value="<?php echo $total ?>" name="amount" />
+                                    <input type="hidden" value="<?php echo $total_qty ?>" name="total_qty" />
+                                    <input type="hidden" name="itemIds" value="{{ substr($itemIds,0,-1) }}" />
+                                    <input readonly type="text" value="{{ $invoiceCode }}" name="code" id="code" class="form-control">
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-6">

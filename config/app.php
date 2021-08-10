@@ -161,6 +161,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -212,6 +213,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         //'Image'=>Intervention\Image\Facades\Image::class,
         'Image' => Intervention\Image\ImageManagerStatic::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

@@ -31,4 +31,9 @@ class Invoice extends Model
     {
         return $this->belongsTo(User::class, 'adjusted_by', 'id');
     }
+
+    public function order()
+    {
+        return $this->belongsTo(Orders_model::class, 'order_id', 'id');
+    }
 }

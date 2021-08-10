@@ -27,6 +27,7 @@ class CreateInvoicesTable extends Migration
             $table->dateTime('issuing_on')->nullable();
             $table->double('discount_amount', 8, 2)->nullable();
             $table->double('amount', 8, 2);
+            $table->double('cost', 8, 2)->nullable();
             $table->float('tax_rate')->nullable();
             $table->boolean('is_paid')->default(false);
             $table->dateTime('paid_at')->nullable();

@@ -75,9 +75,7 @@
                             {{$invoice->issuing_on === '' ? 'OUTSTANDING': $invoice->issuing_on }}
                         </td>
                         <td>
-
                             <a href=""><i class="bi bi-pencil"></i></a>
-                            <a href=""><i class="bi bi-scissors"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -97,27 +95,5 @@
 <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('js/matrix.js')}}"></script>
 <script src="{{asset('js/matrix.tables.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-<script>
-    $(".deleteRecord").click(function() {
-        var id = $(this).attr('rel');
-        var deleteFunction = $(this).attr('rel1');
-        swal({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, cancel!',
-            confirmButtonClass: 'btn btn-success',
-            cancelButtonClass: 'btn btn-danger',
-            buttonsStyling: false,
-            reverseButtons: true
-        }, function() {
-            window.location.href = "/admin/" + deleteFunction + "/" + id;
-        });
-    });
-</script>
+
 @endsection

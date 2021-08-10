@@ -27,6 +27,10 @@ class Orders_model extends Model
         return $this->hasMany(OrderedItemDetail::class, 'orders_id', 'id');
     }
 
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class, 'order_id', 'id');
+    }
 
     public function shippingAddress()
     {

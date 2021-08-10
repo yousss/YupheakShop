@@ -89,6 +89,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     /// Invoices
 
     Route::resource('/invoices', 'InvoiceController');
+    Route::patch("invoices/{id}/items/{itemId}", "InvoiceController@updatingItem")->name('update-invoice-item');
+    Route::get("invoices/{invoiceId}/update/quantity/{quantity}", "InvoiceController@editQty");
+    Route::get('invoices/pay/{invoiceId}', "InvoiceController@pay")->name('invoice-paid');
+    Route::get('invoices/print/{orderedItemsId}', "InvoiceController@print")->name('invoice-print');
     Route::get('ordered-item/remove/{itemId}/{productAttributeId}/{amountStock}', 'InvoiceController@removeItemFromInvoice')->name('remove-item-from-invoice');
     Route::get('shipping/addresses', 'InvoiceController@getShippingAddresses')->name('shippin-addresses');
     Route::post('shipping/addresses', 'ShippingAddressController@store')->name('shippin-addresses');
