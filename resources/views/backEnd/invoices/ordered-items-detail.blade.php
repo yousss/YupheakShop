@@ -15,38 +15,18 @@
             </span>
             <h5>List ordered items</h5>
             <input type="hidden" value="{{ $orderedItems->invoice->id }}" name="invoiceId" />
+            <input type="hidden" value="{{ $orderedItems->id }}" name="orderId" />
             <div class="btn-wrapper" style="width: 100%;">
-                <a class="btn pull-right btn-default edit-invoice-qty" data-toggle="modal" data-target=".edit-quantity"><i class="bi bi-pencil " style="font-size: 1.5rem;"></i></a>
+                @if(!empty($orderedItems->invoice) && $orderedItems->invoice->is_paid !==1)
+                <a class="btn pull-right btn-default edit-invoice-qty" data-toggle="modal" data-target=".edit-quantity">
+                    <i class="bi bi-pencil " style="font-size: 1.5rem;"></i>
+                </a>
+                @endif
                 <a href="{{ route('invoice-print',['orderedItemsId'=>$orderedItems->id]) }}" class="btn btn-primary pull-right"> Export To PDF</a>
             </div>
         </div>
         <div class="top-wrapper">
-            <div class="detail-box-wrapper">
-                <div class="box-row">
-                    <div class="box-label">Grand Total</div>
-                    <div class="box-value grand-total">$ @currency_format($orderedItems->grand_total)</div>
-                </div>
-                <div class="box-row">
-                    <div class="box-label">Total Quantity</div>
-                    <div class="box-value">{{$orderedItems->total_qty}}</div>
-                </div>
-                <div class="box-row">
-                    <div class="box-label">Discount</div>
-                    <div class="box-value">@currency_format($orderedItems->invoice->discount_rate)%</div>
-                </div>
-                <div class="box-row">
-                    <div class="box-label">Shipping Fee</div>
-                    <div class="box-value">$ @currency_format($orderedItems->shipping_charges)</div>
-                </div>
-                <div class="box-row">
-                    <div class="box-label">Paid By</div>
-                    <div class="box-value">{{$orderedItems->payment_method}}</div>
-                </div>
-                <div class="box-row">
-                    <div class="box-label">Coupon Applied</div>
-                    <div class="box-value">@currency_format($orderedItems->coupon_amount) %</div>
-                </div>
-            </div>
+
             @if(!empty($orderedItems->shippingAddress)>0)
             <div class="detail-box-wrapper">
                 <strong>Delivery Address</strong>
@@ -95,9 +75,11 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php $totalPrice = 0;  ?>
                     @if($orderedItems && count($orderedItems->orderedItemsDetail) >0 )
                     @foreach($orderedItems->orderedItemsDetail as $key => $orderedItem)
                     <tr>
+                        <?php $totalPrice += ($orderedItem->price * $orderedItem->quantity);  ?>
                         <td>{{$key+1}}</td>
                         <td>{{ $orderedItem->product_code }}</td>
                         <td>{{ $orderedItem->product_name }}</td>
@@ -111,6 +93,37 @@
                     </tr>
                     @endforeach
                     @endif
+                    <tr>
+                        <td colspan="8"></td>
+                        <td class="text-center">Sub Total</td>
+                        <td>$ <strong>@currency_format($totalPrice)</strong></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8">
+                        </td>
+                        <td class="text-center">Discount({{$orderedItems->invoice->discount_rate}}%)</td>
+                        <td>
+                            <?php $subTotal =  ($totalPrice * $orderedItems->invoice->discount_rate) / 100; ?>
+                            $ @currency_format($subTotal)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="8">
+                        </td>
+                        <td class="text-center">Tax( {{ $orderedItems->invoice->tax_rate}} %)</td>
+                        <td>
+                            <?php $taxedAmount = ($totalPrice * $orderedItems->invoice->tax_rate) / 100; ?>
+                            $ @currency_format($taxedAmount)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="8">
+                        </td>
+                        <td class="text-center">Grand Total</td>
+                        <td>
+                            $ @currency_format($totalPrice - $subTotal + $taxedAmount)
+                        </td>
+                    </tr>
                     <tr>
                         <td colspan="8"></td>
                         <td class="text-center">Invoice Code: <strong>{{ $orderedItems->invoice->code }}</strong></td>
@@ -133,8 +146,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <div class="form-group">
+                        <div style="display: flex;" class="form-group">
                             <input type="number" name="quantity" placeholder="Quantity" class="form-control">
+                            <select class="form-control calculated">
+                                <option value="1">addition</option>
+                                <option value="2">substraction</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <select name="orderedItem" class="form-control">
@@ -151,6 +168,12 @@
             </div>
         </div>
     </div>
+    <div class="alert-container">
+        <div class="alert">
+            The ordered item amount is not enough
+        </div>
+    </div>
+</div>
 </div>
 @endsection
 @section('jsblock')
@@ -180,6 +203,7 @@
                 for (item of foundItems) {
                     string += `<option value="${item.id}">${item.product_name}</option>`
                 }
+                jQuery('select[name="orderedItem"]').empty()
                 jQuery('select[name="orderedItem"]').append(string);
             },
             error: function(error) {}
@@ -188,6 +212,7 @@
     jQuery('.save-btn-qty').click(function() {
         const url = "{{ url('/admin/invoices/') }}";
         const val = jQuery('select[name="orderedItem"]').val();
+        const orderId = jQuery('input[name="orderId"]').val();
         if (0 === parseInt(val)) {
             jQuery('.error').text('Please select item')
             return
@@ -196,22 +221,32 @@
             headers: {
                 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
             },
-            url: `${url}/${invoiceId}/items/${val}`,
+            url: `${url}/${invoiceId}/items/${val}/orders/${orderId}`,
             type: 'PATCH',
             data: {
-                qty: jQuery('input[name="quantity"]').val()
+                qty: jQuery('input[name="quantity"]').val(),
+                sign: jQuery('.calculated').val()
             },
             dataType: 'json',
             success: function({
-                success
+                success,
+                message
             }) {
-                // console.log(success, 'ssss')
                 jQuery('.edit-quantity').modal('hide');
-
                 if (success) window.location.reload()
+
+                var alert = $(".alert-container");
+                alert.slideDown();
+                window.setTimeout(function() {
+                    alert.slideUp();
+                }, 2500);
             },
             error: function(error) {}
         })
     })
+    $(function() {
+        var alert = $(".alert-container");
+        alert.hide();
+    });
 </script>
 @endsection

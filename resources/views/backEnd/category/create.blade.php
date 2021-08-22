@@ -17,10 +17,10 @@
                     </span>
                     <h5>Add New Category</h5>
                 </div>
-                <div class="widget-content ">
+                <div class="widget-content create-edit-form">
                     <form class="form-horizontal" method="post" action="{{route('category.store')}}" name="basic_validate" id="basic_validate" novalidate="novalidate">
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
-                        <div class="container-fluid">
+                        <div class="container">
                             <div class="row">
                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                     <div class="input-group">

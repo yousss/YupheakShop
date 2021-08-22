@@ -57,7 +57,7 @@ class ImagesController extends Controller
                 }
             }
         }
-        return back()->with('message', 'Add Images Successed');
+        return back()->with('message', 'Image added successfully');
     }
 
     /**
@@ -114,6 +114,6 @@ class ImagesController extends Controller
             unlink($image_medium);
             unlink($image_small);
         }
-        return back()->with('message', 'Delete Success!');
+        return back()->with('message', 'Image deleted successfully');
     }
 }

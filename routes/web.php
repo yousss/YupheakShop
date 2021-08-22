@@ -19,7 +19,7 @@ Route::get('/homepage', 'IndexController@index');
 Route::get('/', 'IndexController@shop')->name('shop');
 Route::get('/suggested/search', 'IndexController@suggestedSearch')->name('suggestedSearch');
 Route::get('/contact-us', 'IndexController@contactUs');
-Route::get('/list-products', 'IndexController@shop');
+Route::get('/list-products', 'IndexController@shop')->name('home-product');
 Route::get('/search', 'IndexController@search')->name('search');
 Route::get('/cat/{id}', 'IndexController@listByCat')->name('cats');
 Route::get('/product-detail/{id}', 'IndexController@detialpro')->name('productDetail');
@@ -35,9 +35,9 @@ Route::get('/cart/update-quantity/{id}/{quantity}', 'CartController@updateQuanti
 /// Apply Coupon Code
 Route::post('/apply-coupon', 'CouponController@applycoupon');
 /// Simple User Login /////
-Route::get('/login_page', 'UsersController@index');
-Route::post('/register_user', 'UsersController@register');
-Route::post('/user_login', 'UsersController@login');
+Route::get('/login_page', 'UsersController@index')->name('login-register');
+Route::post('/register_user', 'UsersController@register')->name('user-register');
+Route::post('/user_login', 'UsersController@login')->name('user-login');
 Route::get('/logout', 'UsersController@logout');
 
 ////// User Authentications ///////////
@@ -89,7 +89,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     /// Invoices
 
     Route::resource('/invoices', 'InvoiceController');
-    Route::patch("invoices/{id}/items/{itemId}", "InvoiceController@updatingItem")->name('update-invoice-item');
+    Route::patch("invoices/{id}/items/{itemId}/orders/{orderId}", "InvoiceController@updatingItem")->name('update-invoice-item');
     Route::get("invoices/{invoiceId}/update/quantity/{quantity}", "InvoiceController@editQty");
     Route::get('invoices/pay/{invoiceId}', "InvoiceController@pay")->name('invoice-paid');
     Route::get('invoices/print/{orderedItemsId}', "InvoiceController@print")->name('invoice-print');

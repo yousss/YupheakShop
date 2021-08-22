@@ -12,4 +12,9 @@ class OrderedItemDetail extends Model
     {
         return $this->belongsTo(Products_model::class, 'products_id', 'id');
     }
+
+    public function productAttribute()
+    {
+        return $this->belongsTo(ProductAtrr_model::class, 'product_attribute_id', 'id');
+    }
 }

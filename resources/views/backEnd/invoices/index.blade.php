@@ -30,7 +30,6 @@
                         <th>Amount</th>
                         <th>Created At</th>
                         <th>Issued At</th>
-                        <th class="action-wrapper">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,9 +73,7 @@
                         <td>
                             {{$invoice->issuing_on === '' ? 'OUTSTANDING': $invoice->issuing_on }}
                         </td>
-                        <td>
-                            <a href=""><i class="bi bi-pencil"></i></a>
-                        </td>
+
                     </tr>
                     @endforeach
                     @endif

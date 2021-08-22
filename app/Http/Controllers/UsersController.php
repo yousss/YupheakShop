@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('users.login_register');
+        $from = $request->from;
+        return view('users.login_register', ['from' => $from]);
     }
     public function register(Request $request)
     {
@@ -33,6 +34,9 @@ class UsersController extends Controller
         try {
             $authedUser =  User::create($input_data);
             Auth::login($authedUser);
+            if ($request->from) {
+                return redirect(route('viewcart'));
+            }
             return Redirect()->to(route('shop'))->with($notification);
         } catch (\Exception $e) {
             Log::error($e);
@@ -48,7 +52,10 @@ class UsersController extends Controller
         $input_data = $request->all();
         if (Auth::attempt(['email' => $input_data['email'], 'password' => $input_data['password']])) {
             Session::put('frontSession', $input_data['email']);
-            return redirect(route('viewcart'));
+            if ($request->from) {
+                return redirect(route('viewcart'));
+            }
+            return  redirect(route('home-product'));
         } else {
             return back()->with('message', 'Account is not Valid!');
         }

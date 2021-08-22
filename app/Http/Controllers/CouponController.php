@@ -53,6 +53,8 @@ class CouponController extends Controller
         $input_data = $request->all();
         if (empty($input_data['status'])) {
             $input_data['status'] = 0;
+        } else {
+            $input_data['status'] = 1;
         }
         Coupon_model::create($input_data);
         return back()->with($notification);
@@ -100,6 +102,8 @@ class CouponController extends Controller
         $input_data = $request->all();
         if (empty($input_data['status'])) {
             $input_data['status'] = 0;
+        } else {
+            $input_data['status'] = 1;
         }
         $update_coupon->update($input_data);
         return redirect()->route('coupon.index')->with('message', 'Edit Coupon Already!');

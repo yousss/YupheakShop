@@ -3,11 +3,7 @@
 @section('content')
 <div id="breadcrumb"> <a href="{{url('/admin')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('product.index')}}">Products</a> <a href="#" class="current">Add Attribute</a> </div>
 <div class="container-fluid">
-    @if(Session::has('message'))
-    <div class="alert alert-success text-center" role="alert">
-        <strong>Well done! &nbsp;</strong>{{Session::get('message')}}
-    </div>
-    @endif
+
     <div class="row-fluid">
         <div class="span6">
             <div class="widget-box">

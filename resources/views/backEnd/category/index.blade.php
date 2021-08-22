@@ -3,11 +3,6 @@
 @section('content')
 <div id="breadcrumb"> <a href="{{url('/admin')}}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="{{route('category.index')}}" class="current">Categories</a></div>
 <div class="container-fluid">
-    @if(Session::has('message'))
-    <div class="alert alert-success text-center" role="alert">
-        <strong>Well done!</strong> {{Session::get('message')}}
-    </div>
-    @endif
     <div class="widget-box">
         <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
             <h5>List Categories</h5>

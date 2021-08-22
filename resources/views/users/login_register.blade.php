@@ -10,7 +10,7 @@
                 <!--login form-->
                 <div class="col-md-12">
                     <h2>Login to your account</h2>
-                    <form action="{{url('/user_login')}}" method="post" class="form-horizontal">
+                    <form action="{{route('user-login',['from' => $from])}}" method="post" class="form-horizontal">
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                         <div class="form-group">
                             <input class="form-control" type="email" placeholder="Email" name="email" />
@@ -46,7 +46,7 @@
                 <div class="col-md-12">
                     <!--sign up form-->
                     <h2>New User Signup!</h2>
-                    <form action="{{url('/register_user')}}" method="post" class="form-horizontal">
+                    <form action="{{route('user-register',['from' => $from])}}" method="post" class="form-horizontal">
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                         <div class="form-group">
                             <input class="form-control" type="text" placeholder="Full Name" name="name" value="{{old('name')}}" />

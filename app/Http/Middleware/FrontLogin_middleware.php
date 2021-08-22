@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class FrontLogin_middleware
 {
@@ -16,8 +16,8 @@ class FrontLogin_middleware
      */
     public function handle($request, Closure $next)
     {
-        if(empty(Session::has('frontSession'))){
-            return redirect('/login_page');
+        if (!Auth::check()) {
+            return redirect(route('login-register', ['from' => $request->from]));
         }
         return $next($request);
     }

@@ -108,7 +108,7 @@ class OrdersController extends Controller
                 'is_paid' => false,
                 'total_qty' => $input_data['total_qty'],
                 'paid_by' => $order->payment_method,
-                'note' => null,
+                'note' => 'client buy item',
             ]));
             $this->amount = $order->grand_total;
             $this->paidBy = $order->payment_method;

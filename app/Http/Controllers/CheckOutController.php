@@ -21,7 +21,6 @@ class CheckOutController extends Controller
         if ($shippingaddress) {
             return redirect('/order-review');
         }
-
         return view('checkout.index', compact('countries', 'user_login', 'shippingaddress'));
     }
     public function submitcheckout(Request $request)
@@ -44,6 +43,9 @@ class CheckOutController extends Controller
         DB::beginTransaction();
         try {
             $shippingaddress = DeliveryAddress::where('users_id', Auth::id())->first();
+            if (!$shippingaddress) {
+                $shippingaddress = new DeliveryAddress;
+            }
 
             $shippingaddress->name = $input_data['shipping_name'];
             $shippingaddress->address = $input_data['shipping_address'];
@@ -53,10 +55,9 @@ class CheckOutController extends Controller
             $shippingaddress->pincode = $input_data['shipping_pincode'];
             $shippingaddress->mobile = $input_data['shipping_mobile'];
 
-            if (!$shippingaddress) {
-                $shippingaddress->users_id = Auth::id();
-                $shippingaddress->users_email = Session::get('frontSession');
-            }
+            $shippingaddress->users_id = Auth::id();
+            $shippingaddress->users_email = Session::get('frontSession');
+
 
             User::where('id', Auth::id())->update([
                 'name' => $input_data['billing_name'],

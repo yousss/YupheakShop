@@ -1,5 +1,5 @@
 @extends('frontEnd.layouts.master')
-@section('title','Review Order Page')
+@section('title','Review Order')
 @section('slider')
 @endsection
 @section('content')

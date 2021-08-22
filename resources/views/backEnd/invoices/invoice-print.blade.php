@@ -192,25 +192,25 @@
                             <td colspan="6"></td>
                             <td align="center"><strong>SubTotal</strong></td>
                             <td align="center">
-                                <?php echo $subTotal; ?>
+                                $ @currency_format($subTotal)
                             </td>
                         </tr>
                         <tr>
                             <td colspan="6"></td>
-                            <td align="center"><strong>Discount(%)</strong></td>
-                            <td align="center">{{$orderedItems->invoice->discount_rate}}</td>
-                            <?php $subTotal = $subTotal - ($subTotal * $orderedItems->invoice->discount_rate) / 100; ?>
+                            <td align="center"><strong>Discount({{$orderedItems->invoice->discount_rate}}%)</strong></td>
+                            <?php $discountAmounted =  ($subTotal * $orderedItems->invoice->discount_rate) / 100; ?>
+                            <td align="center"> $ @currency_format($discountAmounted)</td>
                         </tr>
                         <tr>
                             <td colspan="6"></td>
-                            <td align="center"><strong>Tax(%)</strong></td>
-                            <td align="center">{{$orderedItems->invoice->tax_rate}}</td>
-                            <?php $subTotal = $subTotal - ($subTotal * $orderedItems->invoice->taxt_rate) / 100; ?>
+                            <td align="center"><strong>Tax( {{$orderedItems->invoice->tax_rate}} %)</strong></td>
+                            <?php $taxedAmount =  ($subTotal * $orderedItems->invoice->taxt_rate) / 100; ?>
+                            <td align="center">$ @currency_format($taxedAmount)</td>
                         </tr>
                         <tr>
                             <td colspan="6"></td>
                             <td align="center"><strong>Grand Total</strong></td>
-                            <td align="center">$ @currency_format($subTotal)</td>
+                            <td align="center">$ @currency_format($subTotal - $discountAmounted + $taxedAmount)</td>
                         </tr>
                         <tr>
                             <td colspan="10" align="right">

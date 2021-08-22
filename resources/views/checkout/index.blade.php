@@ -12,7 +12,7 @@
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <legend>Billing To</legend>
                     <div class="form-group {{$errors->has('billing_name')?'has-error':''}}">
-                        <input type="text" class="form-control" name="billing_name" id="billing_name" value="{{$user_login->name}}" placeholder="Billing Name">
+                        <input type="text" class="form-control" name="billing_name" id="billing_name" value="{{$user_login ? $user_login->name : '' }}" placeholder="Billing Name">
                         <span class="text-danger">{{$errors->first('billing_name')}}</span>
                     </div>
                     <div class="form-group {{$errors->has('billing_address')?'has-error':''}}">
@@ -58,35 +58,35 @@
                     <!--sign up form-->
                     <legend>Shipping To</legend>
                     <div class="form-group {{$errors->has('shipping_name')?'has-error':''}}">
-                        <input type="text" class="form-control" name="shipping_name" id="shipping_name" value="{{ $shippingaddress->name }}" placeholder="Shipping Name">
+                        <input type="text" class="form-control" name="shipping_name" id="shipping_name" value="{{ $shippingaddress ? $shippingaddress->name : '' }}" placeholder="Shipping Name">
                         <span class="text-danger">{{$errors->first('shipping_name')}}</span>
                     </div>
                     <div class="form-group {{$errors->has('shipping_address')?'has-error':''}}">
-                        <input type="text" class="form-control" value="{{ $shippingaddress->address }}" name="shipping_address" id="shipping_address" placeholder="Shipping Address">
+                        <input type="text" class="form-control" value="{{ $shippingaddress ? $shippingaddress->address : ''}}" name="shipping_address" id="shipping_address" placeholder="Shipping Address">
                         <span class="text-danger">{{$errors->first('shipping_address')}}</span>
                     </div>
                     <div class="form-group {{$errors->has('shipping_city')?'has-error':''}}">
-                        <input type="text" class="form-control" name="shipping_city" value="{{ $shippingaddress->city }}" id="shipping_city" placeholder="Shipping City">
+                        <input type="text" class="form-control" name="shipping_city" value="{{$shippingaddress ?  $shippingaddress->city : '' }}" id="shipping_city" placeholder="Shipping City">
                         <span class="text-danger">{{$errors->first('shipping_city')}}</span>
                     </div>
                     <div class="form-group {{$errors->has('shipping_state')?'has-error':''}}">
-                        <input type="text" class="form-control" name="shipping_state" value="{{ $shippingaddress->state }}" id="shipping_state" placeholder="Shipping State">
+                        <input type="text" class="form-control" name="shipping_state" value="{{ $shippingaddress ? $shippingaddress->state : '' }}" id="shipping_state" placeholder="Shipping State">
                         <span class="text-danger">{{$errors->first('shipping_state')}}</span>
                     </div>
                     <div class=" form-group">
                         <select name="shipping_country" id="shipping_country" class="form-control">
                             @foreach($countries as $country)
-                            <?php $selected = $shippingaddress->country === $country->country_name ? 'selected' : ''; ?>
-                            <option {{$selected}} value="{{$country->country_name}}">{{$country->country_name}}</option>
+                            <?php $selected =  $shippingaddress && $shippingaddress->country === $country->country_name ? 'selected' : ''; ?>
+                            <option {{$selected}} value="{{$country->country_name}}">{{ $country->country_name}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group {{$errors->has('shipping_pincode')?'has-error':''}}">
-                        <input type="text" class="form-control" name="shipping_pincode" value="{{ $shippingaddress->pincode }}" id="shipping_pincode" placeholder="Shipping Pincode">
+                        <input type="text" class="form-control" name="shipping_pincode" value="{{ $shippingaddress ? $shippingaddress->pincode : '' }}" id="shipping_pincode" placeholder="Shipping Pincode">
                         <span class="text-danger">{{$errors->first('shipping_pincode')}}</span>
                     </div>
                     <div class="form-group {{$errors->has('shipping_mobile')?'has-error':''}}">
-                        <input type="text" class="form-control" name="shipping_mobile" value="{{ $shippingaddress->mobile }}" id="shipping_mobile" placeholder="Shipping Mobile">
+                        <input type="text" class="form-control" name="shipping_mobile" value="{{ $shippingaddress ? $shippingaddress->mobile : '' }}" id="shipping_mobile" placeholder="Shipping Mobile">
                         <span class="text-danger">{{$errors->first('shipping_mobile')}}</span>
                     </div>
                     <div class="form-group">

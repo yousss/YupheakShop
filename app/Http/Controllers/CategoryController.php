@@ -117,18 +117,24 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $notifications = [
+            'message' => 'Category has been updated',
+            'alert-type' => 'info'
+        ];
         $update_categories = Category_model::findOrFail($id);
         $this->validate($request, [
             'name' => 'required|max:255|unique:categories,name,' . $update_categories->id,
             'url' => 'required',
         ]);
-        //dd($request->all());die();
         $input_data = $request->all();
         if (empty($input_data['status'])) {
-            $input_data['status'] = 0;
+            $status['status'] = 0;
+        } else if ($input_data['status']) {
+            $status['status'] = 1;
         }
+        $input_data = array_merge($input_data, $status);
         $update_categories->update($input_data);
-        return redirect()->route('category.index')->with('message', 'Updated Success!');
+        return redirect()->route('category.index')->with($notifications);
     }
 
     /**

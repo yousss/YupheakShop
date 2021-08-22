@@ -101,7 +101,7 @@
                     </ul>
                     @if(count($cart_datas) !== 0)
                     <div>
-                        <a class="btn add-to-cart check_out" href="{{url('/check-out')}}">Check Out</a>
+                        <a class="btn add-to-cart check_out" href="{{url('/check-out?from=checkout')}}">Check Out</a>
                     </div>
                     @endif
                 </div>

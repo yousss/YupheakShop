@@ -146,15 +146,16 @@ class InvoiceController extends Controller
         $shipping_fee = $request->shipping_charges;
         $coupon_amount = $request->coupon_amount;
         $tax_rate = $request->tax_rate;
-        $amount = $request->amount + $shipping_fee;
+        $amount = $request->amount;
         $total_qty = $request->total_qty;
         $itemIds =  explode(',', $request->itemIds);
+        $newAmount = $amount  + $shipping_fee;
 
-        $subTotal = ($amount * $discount) / 100;
-        $subTotal = $amount - $subTotal;
+        $subTotal = ($newAmount * $discount) / 100;
+        $subTotal = $newAmount - $subTotal;
         $subTotal = ($subTotal - $coupon_amount);
-        $subTotal = ($subTotal * $tax_rate) / 100;
-        $subTotal = number_format($amount - $subTotal, 2);
+        $taxedAmount = ($subTotal * $tax_rate) / 100;
+        $subTotal = number_format($subTotal + $taxedAmount, 2);
         $code = $request->code;
         $note = $request->note;
         $paid_by = $request->paid_by;
@@ -254,17 +255,60 @@ class InvoiceController extends Controller
     public function update(Request $request, $id)
     {
     }
-    public function updatingItem(Request $request, $id, $itemId)
+    public function updatingItem(Request $request, $id, $itemId, $orderId)
     {
         $qty = $request->qty ?? 0;
+        $sign = $request->sign;
+
         try {
             DB::beginTransaction();
+            $orderDetail = OrderedItemDetail::find($itemId);
+            $stockCounted = $orderDetail->productAttribute->stock;
+
+            if ($sign === '2' && $orderDetail->quantity > 0) {
+                $orderDetail->quantity = $orderDetail->quantity - $qty;
+            } else if ($sign === '1' && $orderDetail->quantity >= 0) {
+                $orderDetail->quantity = $orderDetail->quantity + $qty;
+            }
+
+            if (empty($stockCounted) ||  $stockCounted === 0 || $stockCounted < $orderDetail->quantity) {
+                DB::rollBack();
+                return  response()->json(['success' => false, "message" => "The ordered item amount is not enough"]);
+            }
+            $orderDetail->save();
+            DB::commit();
+
+            DB::beginTransaction();
             $invoice = Invoice::find($id);
-            $invoice->total_qty = $qty;
-            // $invoice->amount = $invoice->cost - ($invoice->cost * )
+            $order = Orders_model::with(['orderedItemsDetail'])->find($orderId);
+            $orderedItems = OrderedItemDetail::where('orders_id', $orderId)->get();
+
+            $totalQty = 0;
+            $totalAmount = 0;
+
+            if ($orderedItems) {
+                foreach ($orderedItems as $orderedItem) {
+                    $totalQty += $orderedItem->quantity;
+                    $totalAmount += ($orderDetail->price * $orderedItem->quantity);
+                }
+            }
+            $invoice->total_qty =  $totalQty;
+            $amount = $totalAmount + $order->shipping_charges - $order->coupon_amount;
+
+            $discount = ($amount * $invoice->discount_rate) / 100;
+            $subTotal = $amount - $discount;
+
+            $tax_rate = $invoice->tax_rate;
+            $taxedAmount = ($subTotal * $tax_rate) / 100;
+
+            $subTotal = number_format($subTotal + $taxedAmount, 2);
+            $invoice->amount = $subTotal;
+            $invoice->discount_amount = $discount;
             $invoice->adjusted_by = Auth::id();
-            $invoice->order()->update(['total_qty' => $qty]);
-            OrderedItemDetail::where('id', $itemId)->update(['quantity' => $qty]);
+            $order->total_qty = $totalQty;
+            $order->grand_total = $subTotal;
+
+            $order->save();
             $invoice->save();
             if ($invoice) {
                 return response()->json(['success' => true]);
